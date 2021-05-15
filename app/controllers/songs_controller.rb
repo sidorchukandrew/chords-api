@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :update, :destroy, :add_themes, :remove_themes]
+  before_action :set_song, only: [:show, :update, :destroy, :add_themes, :remove_themes, :add_genres, :remove_genres]
   before_action :authenticate_user!
 
   # GET /songs
@@ -47,6 +47,16 @@ class SongsController < ApplicationController
 
   def remove_themes
     @song.remove_themes(params[:theme_ids])
+  end
+
+  def add_genres
+    @song.add_genres(params[:genre_ids])
+
+    render json: @song.genres.where(id: params[:genre_ids])
+  end
+
+  def remove_genres
+    @song.remove_genres(params[:genre_ids])
   end
 
   private

@@ -17,4 +17,16 @@ class Song < ApplicationRecord
             self.themes.append(Theme.where(id: theme_ids))
         end
     end
+
+    def remove_genres(genre_ids)
+        if genre_ids && genre_ids.length > 0
+            self.genres.delete(Genre.where(id: genre_ids))
+        end
+    end
+
+    def add_genres(genre_ids)
+        if genre_ids && genre_ids.length > 0
+            self.genres.append(Genre.where(id: genre_ids))
+        end
+    end
 end
