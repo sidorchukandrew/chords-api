@@ -11,7 +11,7 @@ class SongsController < ApplicationController
 
   # GET /songs/1
   def show
-    render json: @song, include: [:themes, :genres]
+    render json: @song, include: [:themes, :genres, :binders]
   end
 
   # POST /songs
