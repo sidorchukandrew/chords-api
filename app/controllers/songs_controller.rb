@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :update, :destroy]
+  before_action :set_song, only: [:show, :update, :destroy, :add_themes, :remove_themes]
   before_action :authenticate_user!
 
   # GET /songs
@@ -11,7 +11,7 @@ class SongsController < ApplicationController
 
   # GET /songs/1
   def show
-    render json: @song
+    render json: @song, include: [:themes, :genres]
   end
 
   # POST /songs
@@ -39,10 +39,24 @@ class SongsController < ApplicationController
     @song.destroy
   end
 
+  def add_themes
+    @song.add_themes(params[:theme_ids])
+
+    render json: @song.themes.where(id: params[:theme_ids])
+  end
+
+  def remove_themes
+    @song.remove_themes(params[:theme_ids])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_song
-      @song = Song.where(team_id: params[:team_id], id: params[:id]).first
+      if params[:id]
+        @song = Song.where(team_id: params[:team_id], id: params[:id]).first
+      else
+        @song = Song.where(team_id: params[:team_id], id: params[:song_id]).first
+      end
     end
 
     # Only allow a list of trusted parameters through.

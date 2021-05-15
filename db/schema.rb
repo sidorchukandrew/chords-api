@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_08_023829) do
+ActiveRecord::Schema.define(version: 2021_05_13_011912) do
 
   create_table "binders", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -32,6 +32,19 @@ ActiveRecord::Schema.define(version: 2021_05_08_023829) do
     t.index ["song_id"], name: "index_binders_songs_on_song_id"
   end
 
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "genres_songs", id: false, force: :cascade do |t|
+    t.integer "genre_id", null: false
+    t.integer "song_id", null: false
+    t.index ["genre_id", "song_id"], name: "index_genres_songs_on_genre_id_and_song_id"
+    t.index ["song_id", "genre_id"], name: "index_genres_songs_on_song_id_and_genre_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string "name", null: false
     t.string "meter"
@@ -45,6 +58,13 @@ ActiveRecord::Schema.define(version: 2021_05_08_023829) do
     t.index "\"team\"", name: "index_songs_on_team"
     t.index ["name"], name: "index_songs_on_name"
     t.index ["team_id"], name: "index_songs_on_team_id"
+  end
+
+  create_table "songs_themes", id: false, force: :cascade do |t|
+    t.integer "song_id", null: false
+    t.integer "theme_id", null: false
+    t.index ["song_id", "theme_id"], name: "index_songs_themes_on_song_id_and_theme_id"
+    t.index ["theme_id", "song_id"], name: "index_songs_themes_on_theme_id_and_song_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -61,6 +81,16 @@ ActiveRecord::Schema.define(version: 2021_05_08_023829) do
     t.boolean "is_admin"
     t.index ["team_id"], name: "index_teams_users_on_team_id"
     t.index ["user_id"], name: "index_teams_users_on_user_id"
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "team_id"
+    t.index "\"team\"", name: "index_themes_on_team"
+    t.index ["name"], name: "index_themes_on_name"
+    t.index ["team_id"], name: "index_themes_on_team_id"
   end
 
   create_table "users", force: :cascade do |t|

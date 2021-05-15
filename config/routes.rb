@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :songs
+  get '/themes', to: 'themes#index'
+  post '/themes', to: 'themes#create'
+  resources :songs do
+    post "/themes", to: "songs#add_themes"
+    delete "/themes", to: "songs#remove_themes"
+  end
   resources :binders do
     post "/songs", to: "binders#add_songs"
     delete "/songs", to: "binders#remove_songs"
