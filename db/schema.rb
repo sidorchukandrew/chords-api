@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_13_011912) do
+ActiveRecord::Schema.define(version: 2021_05_20_234203) do
 
   create_table "binders", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 2021_05_13_011912) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "team_id"
+    t.string "font"
+    t.integer "font_size"
     t.index "\"team\"", name: "index_songs_on_team"
     t.index ["name"], name: "index_songs_on_name"
     t.index ["team_id"], name: "index_songs_on_team_id"

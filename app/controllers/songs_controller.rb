@@ -28,7 +28,7 @@ class SongsController < ApplicationController
   # PATCH/PUT /songs/1
   def update
     if @song.update(song_params)
-      render json: @song
+      render json: @song, include: [:themes, :genres, :binders]
     else  
       render json: @song.errors, status: :unprocessable_entity
     end
@@ -71,6 +71,6 @@ class SongsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def song_params
-      params.require(:song).permit([:name, :team_id, :bpm, :artist, :meter, :key])
+      params.require(:song).permit([:name, :team_id, :bpm, :artist, :meter, :key, :content, :font, :font_size])
     end
 end
