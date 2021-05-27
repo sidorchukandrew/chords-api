@@ -27,8 +27,12 @@ Rails.application.routes.draw do
     delete "/songs", to: "binders#remove_songs"
   end
   
-  #teams
+  # teams
   resources :teams
+
+  # users
+  get "/users/me", to: "users#me"
+  put "/users/me", to: "users#update_me"
   
   mount_devise_token_auth_for 'User', at: 'auth'
 end
