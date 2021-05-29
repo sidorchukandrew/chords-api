@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  # invitations
+  resources :invitations do
+    post "/resend", to: "invitations#resend"
+  end
+
+  post "invitations/claim", to: "invitations#claim"
+  post "invitations/signup", to: "invitations#signup_through_invitation"
+
   # themes
   get '/themes', to: 'themes#index'
   post '/themes', to: 'themes#create'
@@ -9,7 +17,6 @@ Rails.application.routes.draw do
 
   # songs
   resources :songs do
-    
     # song's specific themes
     post "/themes", to: "songs#add_themes"
     delete "/themes", to: "songs#remove_themes"
@@ -28,7 +35,7 @@ Rails.application.routes.draw do
   end
   
   # teams
-  resources :teams
+  resources :teams, param: :team_id
 
   # users
   get "/users/me", to: "users#me"

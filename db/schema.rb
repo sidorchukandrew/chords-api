@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_25_163219) do
+ActiveRecord::Schema.define(version: 2021_05_28_221743) do
 
   create_table "binders", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -45,6 +45,28 @@ ActiveRecord::Schema.define(version: 2021_05_25_163219) do
     t.index ["song_id", "genre_id"], name: "index_genres_songs_on_song_id_and_genre_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.string "email"
+    t.integer "team_id"
+    t.string "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["team_id"], name: "index_invitations_on_team_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_id"
+    t.boolean "is_admin"
+    t.string "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_memberships_on_team_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string "name", null: false
     t.string "meter"
@@ -73,16 +95,6 @@ ActiveRecord::Schema.define(version: 2021_05_25_163219) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "teams_users", force: :cascade do |t|
-    t.integer "team_id"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "is_admin"
-    t.index ["team_id"], name: "index_teams_users_on_team_id"
-    t.index ["user_id"], name: "index_teams_users_on_user_id"
   end
 
   create_table "themes", force: :cascade do |t|

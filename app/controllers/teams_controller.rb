@@ -1,25 +1,28 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :update, :destroy]
   before_action :authenticate_user!
+  before_action :authenticate_team, except: [:create, :index]
+  before_action :set_team, only: [:update, :destroy]
 
   # GET /teams
   def index
-    @teams = User.find(current_user.id).teams
+    @teams = User.find(@current_user.id).teams
 
     render json: @teams
   end
 
   # GET /teams/1
   def show
-    render json: @team
+    @team = Team.find(params[:team_id])
+    @memberships = @team.memberships.collect {|membership| membership.user}.flatten
+    render json: {team: @team, members: @memberships}
   end
 
   # POST /teams
   def create
     @team = Team.new(team_params)
-    @team.users << current_user
-
+    
     if @team.save
+      @team.make_admin(@current_user)
       render json: @team, status: :created, location: @team
     else
       render json: @team.errors, status: :unprocessable_entity
@@ -43,11 +46,11 @@ class TeamsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
-      @team = User.find(current_user.id).teams.find(params[:id])
+      @team = User.find(@current_user.id).teams.find(params[:team_id])
     end
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.require(:team).permit([:name])
+      params.require(:team).permit([:name, :team_id])
     end
 end
