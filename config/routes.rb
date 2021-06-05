@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  # setlists
+  resources :setlists do
+    # setlist's specific songs
+    post "/songs", to: "setlists#add_songs"
+    delete "/songs", to: "setlists#remove_songs"
+    put "/songs/:song_id", to: "setlists#update_scheduled_song"
+  end
+
   # invitations
   resources :invitations do
     post "/resend", to: "invitations#resend"
@@ -40,6 +48,9 @@ Rails.application.routes.draw do
   # users
   get "/users/me", to: "users#me"
   put "/users/me", to: "users#update_me"
+
+  # planning center
+  post "/pco/auth", to: "planning_center#auth"
   
   mount_devise_token_auth_for 'User', at: 'auth'
 end

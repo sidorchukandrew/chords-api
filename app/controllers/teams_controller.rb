@@ -13,8 +13,9 @@ class TeamsController < ApplicationController
   # GET /teams/1
   def show
     @team = Team.find(params[:team_id])
-    @memberships = @team.memberships.collect {|membership| membership.user}.flatten
-    render json: {team: @team, members: @memberships}
+    members = @team.members
+    
+    render json: {team: @team, members: members}
   end
 
   # POST /teams

@@ -14,4 +14,22 @@ class Team < ApplicationRecord
 
         self.memberships << @membership
     end
+
+    def members
+        memberships = self.memberships
+
+        members = memberships.collect do |membership|
+            user = membership.user
+            member = {
+                id: user.id,
+                email: user.email,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                image_url: user.image_url,
+                is_admin: membership.is_admin,
+                position: membership.position,
+                joined_team_at: membership.created_at
+            }
+        end
+    end
 end

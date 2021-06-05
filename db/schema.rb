@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_221743) do
+ActiveRecord::Schema.define(version: 2021_06_05_015435) do
 
   create_table "binders", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -67,6 +67,26 @@ ActiveRecord::Schema.define(version: 2021_05_28_221743) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "scheduled_songs", force: :cascade do |t|
+    t.integer "setlist_id"
+    t.integer "song_id"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["setlist_id"], name: "index_scheduled_songs_on_setlist_id"
+    t.index ["song_id"], name: "index_scheduled_songs_on_song_id"
+  end
+
+  create_table "setlists", force: :cascade do |t|
+    t.string "name"
+    t.date "scheduled_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "team_id"
+    t.index "\"team\"", name: "index_setlists_on_team"
+    t.index ["team_id"], name: "index_setlists_on_team_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string "name", null: false
     t.string "meter"
@@ -95,6 +115,9 @@ ActiveRecord::Schema.define(version: 2021_05_28_221743) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "pco_access_token"
+    t.string "pco_refresh_token"
+    t.datetime "pco_token_created_at"
   end
 
   create_table "themes", force: :cascade do |t|

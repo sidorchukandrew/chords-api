@@ -23,4 +23,11 @@ class User < ActiveRecord::Base
       self.teams << team
     end
   end
+
+  def add_pco_token(token)
+    self.pco_access_token = token.token
+    self.pco_refresh_token = token.refresh_token
+    self.pco_token_created_at = Time.at(token.params['created_at'])
+    self.save
+  end
 end
