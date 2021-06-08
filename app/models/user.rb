@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :invitations
   has_many :memberships
   has_many :teams, through: :memberships
+  has_one_attached :profile_picture
 
   def belongs_to_team?(team_id)
     self.teams.exists?(team_id)
