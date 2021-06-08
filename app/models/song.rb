@@ -2,7 +2,7 @@ class Song < ApplicationRecord
     has_and_belongs_to_many :binders
     has_and_belongs_to_many :genres
     has_and_belongs_to_many :themes
-    has_many :scheduled_songs
+    has_many :scheduled_songs, :dependent => :destroy
     has_many :setlists, through: :scheduled_songs
 
     belongs_to :team

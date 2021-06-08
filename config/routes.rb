@@ -48,9 +48,15 @@ Rails.application.routes.draw do
   # users
   get "/users/me", to: "users#me"
   put "/users/me", to: "users#update_me"
+  get "/users/me/memberships", to: "users#membership"
+  get "/users/:id/memberships/:team_id", to: "users#show_membership"
+  put "/users/:id/memberships/:team_id", to: "users#update_membership"
+  delete "/users/:id/memberships/:team_id", to: "users#remove_membership"
 
   # planning center
   post "/pco/auth", to: "planning_center#auth"
+  get "/pco/songs", to: "planning_center#index"
+  post "/pco/songs", to: "planning_center#import"
   
   mount_devise_token_auth_for 'User', at: 'auth'
 end
