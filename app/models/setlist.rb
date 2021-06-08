@@ -1,5 +1,5 @@
 class Setlist < ApplicationRecord
-    has_many :scheduled_songs
+    has_many :scheduled_songs, :dependent => :destroy
     has_many :songs, through: :scheduled_songs
 
     def remove_songs(song_ids)

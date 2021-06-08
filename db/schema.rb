@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_05_015435) do
+ActiveRecord::Schema.define(version: 2021_06_05_190840) do
 
   create_table "binders", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2021_06_05_015435) do
     t.integer "team_id"
     t.string "font"
     t.integer "font_size"
+    t.string "source"
     t.index "\"team\"", name: "index_songs_on_team"
     t.index ["name"], name: "index_songs_on_name"
     t.index ["team_id"], name: "index_songs_on_team_id"
@@ -115,9 +116,6 @@ ActiveRecord::Schema.define(version: 2021_06_05_015435) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "pco_access_token"
-    t.string "pco_refresh_token"
-    t.datetime "pco_token_created_at"
   end
 
   create_table "themes", force: :cascade do |t|
@@ -148,6 +146,9 @@ ActiveRecord::Schema.define(version: 2021_06_05_015435) do
     t.string "first_name"
     t.string "last_name"
     t.string "image_url"
+    t.string "pco_access_token"
+    t.string "pco_refresh_token"
+    t.datetime "pco_token_expires_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

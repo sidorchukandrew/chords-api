@@ -69,6 +69,6 @@ class SetlistsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def setlist_params
-      params.require(:setlist).permit([:id, :name, :scheduled_date, :team_id, :song_ids, :order])
+      params.require(:setlist).permit([:id, :name, :scheduled_date, :team_id, :song_ids])
     end
 end

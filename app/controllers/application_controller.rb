@@ -3,12 +3,12 @@ class ApplicationController < ActionController::API
 
         private
         def authenticate_team
-                set_user
+                set_current_user
                 unless @current_user.belongs_to_team?(params[:team_id])
                         return render json: {errors: ["You do not have access to this team's resources"]}, status: 401
                 end
         end
-        def set_user
+        def set_current_user
                 @current_user = User.find(current_user.id)
         end
 end
