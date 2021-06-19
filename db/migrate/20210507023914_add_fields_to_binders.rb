@@ -3,8 +3,7 @@ class AddFieldsToBinders < ActiveRecord::Migration[6.1]
     add_column(:binders, :name, :string)
     add_column(:binders, :color, :string)
 
-    add_reference(:binders, :team)
-
-    add_index(:binders, :team)
+    add_reference(:binders, :team, index: true)
+    add_foreign_key(:binders, :teams)
   end
 end

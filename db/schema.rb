@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_06_12_123711) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -45,15 +48,14 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "color"
-    t.integer "team_id"
+    t.bigint "team_id"
     t.text "description"
-    t.index "\"team\"", name: "index_binders_on_team"
     t.index ["team_id"], name: "index_binders_on_team_id"
   end
 
   create_table "binders_songs", force: :cascade do |t|
-    t.integer "binder_id"
-    t.integer "song_id"
+    t.bigint "binder_id"
+    t.bigint "song_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["binder_id"], name: "index_binders_songs_on_binder_id"
@@ -67,26 +69,26 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
   end
 
   create_table "genres_songs", id: false, force: :cascade do |t|
-    t.integer "genre_id", null: false
-    t.integer "song_id", null: false
+    t.bigint "genre_id", null: false
+    t.bigint "song_id", null: false
     t.index ["genre_id", "song_id"], name: "index_genres_songs_on_genre_id_and_song_id"
     t.index ["song_id", "genre_id"], name: "index_genres_songs_on_song_id_and_genre_id"
   end
 
   create_table "invitations", force: :cascade do |t|
     t.string "email"
-    t.integer "team_id"
+    t.bigint "team_id"
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["team_id"], name: "index_invitations_on_team_id"
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "team_id"
+    t.bigint "user_id"
+    t.bigint "team_id"
     t.boolean "is_admin"
     t.string "position"
     t.datetime "created_at", precision: 6, null: false
@@ -96,8 +98,8 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
   end
 
   create_table "scheduled_songs", force: :cascade do |t|
-    t.integer "setlist_id"
-    t.integer "song_id"
+    t.bigint "setlist_id"
+    t.bigint "song_id"
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -110,8 +112,7 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
     t.date "scheduled_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "team_id"
-    t.index "\"team\"", name: "index_setlists_on_team"
+    t.bigint "team_id"
     t.index ["team_id"], name: "index_setlists_on_team_id"
   end
 
@@ -124,20 +125,19 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "team_id"
+    t.bigint "team_id"
     t.string "font"
     t.integer "font_size"
     t.string "source"
     t.boolean "bold_chords"
     t.boolean "italic_chords"
-    t.index "\"team\"", name: "index_songs_on_team"
     t.index ["name"], name: "index_songs_on_name"
     t.index ["team_id"], name: "index_songs_on_team_id"
   end
 
   create_table "songs_themes", id: false, force: :cascade do |t|
-    t.integer "song_id", null: false
-    t.integer "theme_id", null: false
+    t.bigint "song_id", null: false
+    t.bigint "theme_id", null: false
     t.index ["song_id", "theme_id"], name: "index_songs_themes_on_song_id_and_theme_id"
     t.index ["theme_id", "song_id"], name: "index_songs_themes_on_theme_id_and_song_id"
   end
@@ -152,8 +152,7 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "team_id"
-    t.index "\"team\"", name: "index_themes_on_team"
+    t.bigint "team_id"
     t.index ["name"], name: "index_themes_on_name"
     t.index ["team_id"], name: "index_themes_on_team_id"
   end
@@ -187,4 +186,8 @@ ActiveRecord::Schema.define(version: 2021_06_12_123711) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "binders", "teams"
+  add_foreign_key "setlists", "teams"
+  add_foreign_key "songs", "teams"
+  add_foreign_key "themes", "teams"
 end
