@@ -56,6 +56,6 @@ class UsersController < ApplicationController
     end
 
     def membership_params
-        params.permit([:is_admin])
+        params.permit([:is_admin, :position])
     end
 end

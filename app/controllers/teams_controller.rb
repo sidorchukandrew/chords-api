@@ -6,7 +6,9 @@ class TeamsController < ApplicationController
   # GET /teams
   def index
     @teams = User.find(@current_user.id).teams
-
+    @teams = @teams.map do |team|
+      team.with_image
+    end
     render json: @teams
   end
 
@@ -15,7 +17,7 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:team_id])
     members = @team.members
     
-    render json: {team: @team, members: members}
+    render json: {team: @team.with_image, members: members}
   end
 
   # POST /teams

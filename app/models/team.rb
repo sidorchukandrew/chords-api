@@ -6,6 +6,8 @@ class Team < ApplicationRecord
     has_many :themes, dependent: :delete_all
     has_many :invitations, dependent: :delete_all
 
+    has_one_attached :image
+
     def make_admin(user)
         @membership = Membership.new do |membership|
             membership.user = user
@@ -25,11 +27,21 @@ class Team < ApplicationRecord
                 email: user.email,
                 first_name: user.first_name,
                 last_name: user.last_name,
-                image_url: user.image_url,
+                image_url: user.profile_picture.url,
                 is_admin: membership.is_admin,
                 position: membership.position,
                 joined_team_at: membership.created_at
             }
         end
+    end
+
+    def with_image
+        team_hash = {
+            name: self.name,
+            id: self.id,
+            created_at: self.created_at,
+            updated_at: self.updated_at,
+            image_url: self.image&.url
+        }
     end
 end

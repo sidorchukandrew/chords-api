@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_003257) do
+ActiveRecord::Schema.define(version: 2021_06_12_123711) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_003257) do
     t.string "font"
     t.integer "font_size"
     t.string "source"
+    t.boolean "bold_chords"
+    t.boolean "italic_chords"
     t.index "\"team\"", name: "index_songs_on_team"
     t.index ["name"], name: "index_songs_on_name"
     t.index ["team_id"], name: "index_songs_on_team_id"

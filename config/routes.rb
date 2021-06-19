@@ -57,6 +57,12 @@ Rails.application.routes.draw do
   post "/pco/auth", to: "planning_center#auth"
   get "/pco/songs", to: "planning_center#index"
   post "/pco/songs", to: "planning_center#import"
+
+  # files
+  post "/files/users", to: "files#create_user_image"
+  delete "/files/users", to: "files#delete_user_image"
+  post "/files/teams/:team_id", to: "files#create_team_image"
+  delete "/files/teams/:team_id", to: "files#delete_team_image"
   
   mount_devise_token_auth_for 'User', at: 'auth'
 end

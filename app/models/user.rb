@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
         created_at: self.created_at,
         first_name: self.first_name,
         last_name: self.last_name,
-        image_url: self.image_url,
+        image_url: self.profile_picture.url,
         pco_connected: pco_token_active?
     }
 
