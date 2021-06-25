@@ -17,6 +17,8 @@ class SongsController < ApplicationController
   # POST /songs
   def create
     @song = Song.new(song_params)
+    @song.font_size = 18
+    @song.font = "Courier New"
     @song.source = "App"
 
     if @song.save
