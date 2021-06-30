@@ -52,7 +52,12 @@ class Setlist < ApplicationRecord
                     id: song.id,
                     name: song.name,
                     key: song.key,
-                    position: schedule_data.position
+                    position: schedule_data.position,
+                    content: song.content,
+                    bold_chords: song.bold_chords,
+                    italic_chords: song.italic_chords,
+                    font: song.font,
+                    font_size: song.font_size
                 }
             end
         else
@@ -62,7 +67,12 @@ class Setlist < ApplicationRecord
                     id: song.id,
                     name: song.name,
                     key: song.key,
-                    position: schedule_data.position
+                    position: schedule_data.position,
+                    content: song.content,
+                    bold_chords: song.bold_chords,
+                    italic_chords: song.italic_chords,
+                    font: song.font,
+                    font_size: song.font_size
                 }
             end
         end
