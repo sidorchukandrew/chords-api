@@ -6,6 +6,13 @@ class PlanningCenterController < ApplicationController
     before_action :authenticate_user!
     before_action :authenticate_team, only: [:import]
 
+    def disconnect
+        @current_user.pco_access_token = nil
+        @current_user.pco_refresh_token = nil
+        @current_user.pco_token_expires_at = nil
+        @current_user.save
+    end
+    
     def auth
         if params[:code]
             token = client.auth_code.get_token(params[:code], redirect_uri: "#{ENV['WEB_APP_BASE_URL']}/app/import/pco_redirect")

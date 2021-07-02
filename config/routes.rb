@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   post "/pco/auth", to: "planning_center#auth"
   get "/pco/songs", to: "planning_center#index"
   post "/pco/songs", to: "planning_center#import"
+  delete "/pco/users/me", to: "planning_center#disconnect"
 
   # files
   post "/files/users", to: "files#create_user_image"
