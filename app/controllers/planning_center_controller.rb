@@ -15,7 +15,7 @@ class PlanningCenterController < ApplicationController
     
     def auth
         if params[:code]
-            token = client.auth_code.get_token(params[:code], redirect_uri: "#{ENV['WEB_APP_BASE_URL']}/app/import/pco_redirect")
+            token = client.auth_code.get_token(params[:code], redirect_uri: "#{ENV['WEB_APP_BASE_URL']}/import/pco_redirect")
             @current_user.add_pco_token(token)
         end
     end
