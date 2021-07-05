@@ -11,4 +11,8 @@ class ApplicationController < ActionController::API
         def set_current_user
                 @current_user = User.find(current_user.id)
         end
+
+        def name_passed?
+                params.key?(:name)
+        end
 end

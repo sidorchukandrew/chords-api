@@ -5,7 +5,10 @@ class BindersController < ApplicationController
   # GET /binders
   def index
     @binders = Binder.includes(:songs).where(team_id: params[:team_id])
-    render json: @binders, include: :songs
+    @binders = @binders.where("name ILIKE ?", "%#{params[:name]}%") if name_passed?
+
+    render json: @binders if name_passed?
+    render json: @binders, include: :songs if !name_passed?
   end
 
   # GET /binders/1

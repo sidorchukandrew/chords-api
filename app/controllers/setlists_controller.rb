@@ -6,7 +6,7 @@ class SetlistsController < ApplicationController
   # GET /setlists
   def index
     @setlists = Setlist.includes(:songs).where(team_id: params[:team_id])
-
+    @setlists = @setlists.where("name ILIKE ?", "%#{params[:name]}%") if name_passed?
     render json: @setlists, include: :songs
   end
 
