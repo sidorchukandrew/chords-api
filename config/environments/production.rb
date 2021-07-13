@@ -112,12 +112,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
     config.action_mailer.default_url_options = { :host => ENV["API_HOSTNAME"] }
-
-    puts ENV["EMAIL_SERVER"]
-    puts ENV["EMAIL_SERVER_PORT"]
-    puts ENV["EMAIL_USERNAME"]
-    puts ENV["EMAIL_PASSWORD"]
-    puts "-----------------------------------------------------------------------"
     config.action_mailer.smtp_settings = {
     :address              => ENV["EMAIL_SERVER"],
     :port                 => ENV["EMAIL_SERVER_PORT"],
