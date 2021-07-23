@@ -45,7 +45,7 @@ class PlanningCenterController < ApplicationController
 
         song_ids.each do |song_id|
             pco_song = api.services.v2.songs[song_id].get
-            arrangements = api.services.v2.songs[song_id].arrangements.get
+            arrangements = api.services.v2.songs[song_id].arrangements.get(include: 'keys')
 
             song = Song.new do |song|
                 song.name = pco_song["data"]["attributes"]["title"]
@@ -57,6 +57,10 @@ class PlanningCenterController < ApplicationController
                 song.font = 'Courier New'
                 song.font_size = 18
                 song.source = "Planning Center"
+
+                if arrangements["included"] && arrangements["included"][0] && arrangements["included"][0]["attributes"]
+                    song.key = arrangements["included"][0]["attributes"]["starting_key"]
+                end
             end
 
             song.save
