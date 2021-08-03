@@ -54,8 +54,6 @@ class PlanningCenterController < ApplicationController
                 song.bpm = arrangements["data"][0]["attributes"]["bpm"]
                 song.meter = arrangements["data"][0]["attributes"]["meter"]
                 song.team_id = params[:team_id]
-                song.font = 'Courier New'
-                song.font_size = 18
                 song.source = "Planning Center"
 
                 if arrangements["included"] && arrangements["included"][0] && arrangements["included"][0]["attributes"]
