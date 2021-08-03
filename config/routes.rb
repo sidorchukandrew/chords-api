@@ -32,7 +32,14 @@ Rails.application.routes.draw do
     # song's specific genres
     post "/genres", to: "songs#add_genres"
     delete "/genres", to: "songs#remove_genres"
+
+    get "/formats", to: "formats#index"
   end
+  
+  # formats
+  put "/formats/:id", to: "formats#update"
+  post "/formats", to: "formats#create"
+
   
   # binders
   resources :binders do

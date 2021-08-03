@@ -4,9 +4,11 @@ class Song < ApplicationRecord
     has_and_belongs_to_many :themes
     has_many :scheduled_songs, :dependent => :destroy
     has_many :setlists, through: :scheduled_songs
+    has_many :format_configurations, dependent: :destroy
+    has_many :formats, through: :format_configurations
 
     belongs_to :team
-
+    
     def remove_themes(theme_ids)
         if theme_ids && theme_ids.length > 0
             self.themes.delete(Theme.where(id: theme_ids))

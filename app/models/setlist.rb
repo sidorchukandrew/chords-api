@@ -15,7 +15,7 @@ class Setlist < ApplicationRecord
         end
     end
 
-    def add_songs(song_ids)
+    def add_songs(song_ids, current_user)
         last_position = self.scheduled_songs.count
         if song_ids && song_ids.length > 0
             song_ids.each do |song_id|
@@ -23,7 +23,7 @@ class Setlist < ApplicationRecord
                 last_position += 1
             end
 
-            songs_with_positions(song_ids)
+            songs_with_positions(song_ids, current_user)
         end
     end
 
@@ -43,38 +43,45 @@ class Setlist < ApplicationRecord
         @scheduled_song.save
     end
 
-    def songs_with_positions(song_ids = nil)
-
+    def songs_with_positions(song_ids = nil, current_user)
         if song_ids
             @songs_with_positions = self.scheduled_songs.where(song_id: song_ids).order("position").collect do |schedule_data|
                 song = schedule_data.song
+                format = Format.for_song_and_user(song, current_user).first
+                format = default_format if !format.present?
                 song_with_position = {
                     id: song.id,
                     name: song.name,
                     key: song.key,
                     position: schedule_data.position,
                     content: song.content,
-                    bold_chords: song.bold_chords,
-                    italic_chords: song.italic_chords,
-                    font: song.font,
-                    font_size: song.font_size
+                    format: format.as_json
                 }
             end
         else
             @songs_with_positions = self.scheduled_songs.order("position").collect do |schedule_data|
                 song = schedule_data.song
+                format = Format.for_song_and_user(song, current_user).first
+                format = default_format if !format.present?
                 song_with_position = {
                     id: song.id,
                     name: song.name,
                     key: song.key,
                     position: schedule_data.position,
                     content: song.content,
-                    bold_chords: song.bold_chords,
-                    italic_chords: song.italic_chords,
-                    font: song.font,
-                    font_size: song.font_size
+                    format: format.as_json
                 }
             end
         end
+    end
+
+    private
+     def default_format
+      format = {
+        font: "Courier New",
+        font_size: 18,
+        bold_chords: false,
+        italic_chords: false
+      }
     end
 end

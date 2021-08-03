@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :update, :destroy, :add_themes, :remove_themes, :add_genres, :remove_genres]
+  before_action :set_song, only: [:update, :destroy, :add_themes, :remove_themes, :add_genres, :remove_genres]
   before_action :authenticate_user!
 
   # GET /songs
@@ -12,14 +12,18 @@ class SongsController < ApplicationController
 
   # GET /songs/1
   def show
-    render json: @song, include: [:themes, :genres, :binders]
+    @song = Song.includes(:themes, :genres, :binders).find(params[:id])
+    @format = Format.for_song_and_user(@song, @current_user).first
+
+    song = @song.as_json
+    song["format"] = @format ? @format : default_format
+    
+    render json: song
   end
 
   # POST /songs
   def create
     @song = Song.new(song_params)
-    @song.font_size = 18
-    @song.font = "Courier New"
     @song.source = "App"
 
     if @song.save
@@ -76,5 +80,14 @@ class SongsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def song_params
       params.require(:song).permit([:name, :team_id, :bpm, :artist, :meter, :key, :content, :font, :font_size, :bold_chords, :italic_chords])
+    end
+
+    def default_format
+      format = {
+        font: "Courier New",
+        font_size: 18,
+        bold_chords: false,
+        italic_chords: false
+      }
     end
 end
