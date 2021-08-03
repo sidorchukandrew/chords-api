@@ -17,7 +17,10 @@ class SongsController < ApplicationController
 
     song = @song.as_json
     song["format"] = @format ? @format : default_format
-    
+    song["themes"] = @song.themes.as_json
+    song["binders"] = @song.binders.as_json
+    song["genres"] = @song.genres.as_json
+
     render json: song
   end
 

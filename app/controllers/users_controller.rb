@@ -32,6 +32,15 @@ class UsersController < ApplicationController
         end
     end
 
+    def show_membership
+        @membership = Membership.where(team_id: params[:team_id]).where(user_id: params[:id]).first
+        if @membership.present?
+            render json: @membership.to_hash
+        else
+            render status: 404
+        end
+    end
+
     def update_me
         @user = User.find(current_user.id)
 
