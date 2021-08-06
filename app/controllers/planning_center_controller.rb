@@ -57,7 +57,7 @@ class PlanningCenterController < ApplicationController
                 song.source = "Planning Center"
 
                 if arrangements["included"] && arrangements["included"][0] && arrangements["included"][0]["attributes"]
-                    song.key = arrangements["included"][0]["attributes"]["starting_key"]
+                    song.original_key = arrangements["included"][0]["attributes"]["starting_key"]
                 end
             end
 

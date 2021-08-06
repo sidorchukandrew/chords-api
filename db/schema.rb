@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_03_012554) do
+ActiveRecord::Schema.define(version: 2021_08_04_192706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_08_03_012554) do
   end
 
   create_table "formats", force: :cascade do |t|
-    t.string "font", default: "Courier New"
+    t.string "font", default: "Open Sans"
     t.integer "font_size", default: 18
     t.boolean "bold_chords", default: false
     t.boolean "italic_chords", default: false
@@ -145,13 +145,14 @@ ActiveRecord::Schema.define(version: 2021_08_03_012554) do
     t.string "name", null: false
     t.string "meter"
     t.string "artist"
-    t.string "key"
+    t.string "original_key"
     t.integer "bpm"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "team_id"
     t.string "source"
+    t.string "transposed_key"
     t.index ["name"], name: "index_songs_on_name"
     t.index ["team_id"], name: "index_songs_on_team_id"
   end

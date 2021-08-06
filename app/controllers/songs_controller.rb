@@ -82,12 +82,12 @@ class SongsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def song_params
-      params.require(:song).permit([:name, :team_id, :bpm, :artist, :meter, :key, :content, :font, :font_size, :bold_chords, :italic_chords])
+      params.permit([:name, :team_id, :bpm, :artist, :meter, :original_key, :content, :transposed_key])
     end
 
     def default_format
       format = {
-        font: "Courier New",
+        font: "Roboto Mono",
         font_size: 18,
         bold_chords: false,
         italic_chords: false

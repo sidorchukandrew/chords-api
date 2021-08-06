@@ -52,7 +52,8 @@ class Setlist < ApplicationRecord
                 song_with_position = {
                     id: song.id,
                     name: song.name,
-                    key: song.key,
+                    original_key: song.original_key,
+                    transposed_key: song.transposed_key,
                     position: schedule_data.position,
                     content: song.content,
                     format: format.as_json
@@ -66,7 +67,8 @@ class Setlist < ApplicationRecord
                 song_with_position = {
                     id: song.id,
                     name: song.name,
-                    key: song.key,
+                    original_key: song.original_key,
+                    transposed_key: song.transposed_key,
                     position: schedule_data.position,
                     content: song.content,
                     format: format.as_json
