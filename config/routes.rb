@@ -71,6 +71,10 @@ Rails.application.routes.draw do
   delete "/files/users", to: "files#delete_user_image"
   post "/files/teams/:team_id", to: "files#create_team_image"
   delete "/files/teams/:team_id", to: "files#delete_team_image"
+
+  # public setlists
+  get "/public_setlists", to: "public_setlists#index"
+  get "/public_setlists/:id", to: "public_setlists#show"
   
   mount_devise_token_auth_for 'User', at: 'auth'
 end
