@@ -75,6 +75,8 @@ Rails.application.routes.draw do
   # public setlists
   get "/public_setlists", to: "public_setlists#index"
   get "/public_setlists/:id", to: "public_setlists#show"
+  post "/public_setlists", to: "public_setlists#create"
+  put "/public_setlists/:id", to: "public_setlists#update"
   
   mount_devise_token_auth_for 'User', at: 'auth'
 end
