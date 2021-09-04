@@ -1,7 +1,7 @@
 class AdminTeamsController < ApplicationController
     before_action :authenticate_user!
     before_action :authenticate_admin
-    before_action :set_team, only: [:show]
+    before_action :set_team, only: [:show, :memberships]
 
     def index
         @teams = Team.all
@@ -12,6 +12,14 @@ class AdminTeamsController < ApplicationController
 
     def show
         render json: @team.to_hash
+    end
+
+    def memberships
+        @memberships = @team.memberships.map do |membership|
+            membership.to_hash
+        end
+        
+        render json: @memberships
     end
 
     private

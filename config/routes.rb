@@ -90,6 +90,7 @@ Rails.application.routes.draw do
     scope "/teams" do
       get "/", to: "admin_teams#index"
       get "/:id", to: "admin_teams#show"
+      get "/:id/memberships", to: "admin_teams#memberships"
     end
   end
 
