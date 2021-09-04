@@ -35,6 +35,17 @@ class Team < ApplicationRecord
         end
     end
 
+    def to_hash
+        team_hash = {
+            name: self.name,
+            id: self.id,
+            created_at: self.created_at,
+            updated_at: self.updated_at,
+            image_url: self.image&.url,
+            memberships: self.memberships
+        }
+    end
+
     def with_image
         team_hash = {
             name: self.name,

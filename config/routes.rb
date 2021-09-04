@@ -81,9 +81,16 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
   scope "/admin" do
-    get "/users", to: "admin_users#index"
-    get "/users/:id", to: "admin_users#show"
-    get "/users/:id/memberships", to: "admin_users#memberships"
+    scope "/users" do
+      get "/", to: "admin_users#index"
+      get "/:id", to: "admin_users#show"
+      get "/:id/memberships", to: "admin_users#memberships"
+    end
+
+    scope "/teams" do
+      get "/", to: "admin_teams#index"
+      get "/:id", to: "admin_teams#show"
+    end
   end
 
 end
