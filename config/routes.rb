@@ -82,6 +82,8 @@ Rails.application.routes.draw do
 
   scope "/admin" do
     get "/users", to: "admin_users#index"
+    get "/users/:id", to: "admin_users#show"
+    get "/users/:id/memberships", to: "admin_users#memberships"
   end
 
 end

@@ -66,10 +66,6 @@ class User < ActiveRecord::Base
     user_hash
   end
 
-  def is_admin?
-    self.is_admin
-  end
-
   private
 
   def pco_token_active?

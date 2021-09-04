@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
         end
 
         def authenticate_admin
-                unless @current_user.is_admin?
+                unless @current_user.is_admin
                         return render  status: 403
                 end
         end
