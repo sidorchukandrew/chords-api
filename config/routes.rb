@@ -93,6 +93,7 @@ Rails.application.routes.draw do
       get "/:id/memberships", to: "admin_teams#memberships"
 
       get "/:id/songs", to: "admin_teams#songs"
+      get "/:id/binders", to: "admin_teams#binders"
     end
 
   end

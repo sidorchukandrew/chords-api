@@ -1,7 +1,7 @@
 class AdminTeamsController < ApplicationController
     before_action :authenticate_user!
     before_action :authenticate_admin
-    before_action :set_team, only: [:show, :memberships]
+    before_action :set_team, only: [:show, :memberships, :songs, :binders]
 
     def index
         @teams = Team.all
@@ -23,9 +23,15 @@ class AdminTeamsController < ApplicationController
     end
 
     def songs
-        @songs = Song.all
+        @songs = @team.songs
         
         render json: @songs
+    end
+
+    def binders
+        @binders = @team.binders
+        
+        render json: @binders, include: [:songs]
     end
 
     private
