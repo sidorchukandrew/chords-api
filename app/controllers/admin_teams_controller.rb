@@ -22,6 +22,12 @@ class AdminTeamsController < ApplicationController
         render json: @memberships
     end
 
+    def songs
+        @songs = Song.all
+        
+        render json: @songs
+    end
+
     private
     def set_team
         @team = Team.find(params[:id])
