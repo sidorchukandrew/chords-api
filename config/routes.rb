@@ -79,4 +79,9 @@ Rails.application.routes.draw do
   put "/public_setlists/:id", to: "public_setlists#update"
   
   mount_devise_token_auth_for 'User', at: 'auth'
+
+  scope "/admin" do
+    get "/users", to: "admin_users#index"
+  end
+
 end
