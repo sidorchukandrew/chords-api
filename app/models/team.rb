@@ -5,6 +5,7 @@ class Team < ApplicationRecord
     has_many :songs, dependent: :delete_all
     has_many :themes, dependent: :delete_all
     has_many :invitations, dependent: :delete_all
+    has_many :setlists, dependent: :delete_all
 
     has_one_attached :image
 

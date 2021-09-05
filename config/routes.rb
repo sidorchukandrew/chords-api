@@ -94,6 +94,7 @@ Rails.application.routes.draw do
 
       get "/:id/songs", to: "admin_teams#songs"
       get "/:id/binders", to: "admin_teams#binders"
+      get "/:id/setlists", to: "admin_teams#setlists"
     end
 
   end
