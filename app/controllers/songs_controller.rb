@@ -1,6 +1,6 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:update, :destroy, :add_themes, :remove_themes, :add_genres, :remove_genres]
   before_action :authenticate_user!
+  before_action :set_song, only: [:update, :destroy, :add_themes, :remove_themes, :add_genres, :remove_genres]
 
   # GET /songs
   def index

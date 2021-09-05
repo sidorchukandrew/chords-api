@@ -1,6 +1,6 @@
 class BindersController < ApplicationController
-  before_action :set_binder, only: [:show, :update, :destroy, :add_songs, :remove_songs]
   before_action :authenticate_user!
+  before_action :set_binder, only: [:show, :update, :destroy, :add_songs, :remove_songs]
 
   # GET /binders
   def index
