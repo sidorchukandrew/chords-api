@@ -97,6 +97,9 @@ Rails.application.routes.draw do
       get "/:id/setlists", to: "admin_teams#setlists"
     end
 
+    
   end
-
+  
+  post "/feedback", to: "feedback#create"
+  
 end

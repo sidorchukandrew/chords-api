@@ -1,0 +1,21 @@
+<h1><%= @feedback %></h1>
+
+<h2>
+    Submitter
+</h2>
+<p>
+    Email: <%= @user.email %> <br/>
+    Name: <%= @user.first_name %> <%= @user.last_name %><br/>
+</p>
+
+<h2>
+    Team
+</h2>
+
+<p>
+    Name: <%=  @team.name %>
+</p>
+
+<p>
+    Time: <%= Time.now %>
+</p>
