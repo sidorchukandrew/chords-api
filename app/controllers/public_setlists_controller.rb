@@ -1,16 +1,17 @@
 class PublicSetlistsController < ApplicationController
 
     def index
-        @setlists = PublicSetlist.where("? < expires_on", Time.now)
+        @setlists = PublicSetlist.where("? < expires_on", Time.current.utc)
 
         render json: @setlists
     end
 
     def show
         begin
-            @setlist = PublicSetlist.where("? < expires_on", Time.now)
-                            .where(code: params[:id])
-                            .or(PublicSetlist.where(setlist_id: params[:id]))
+            identifierQuery = {}
+
+            @setlist = PublicSetlist.where("? < expires_on", Time.current.utc)
+                            .where(id_query)
                             .first
 
             render json: @setlist.to_hash
@@ -58,5 +59,17 @@ class PublicSetlistsController < ApplicationController
 
     def does_not_exist?
         PublicSetlist.where(setlist_id: params[:setlist_id]).where("expires_on > ?", Time.now).count == 0
+    end
+
+    def id_query
+        query = {}
+        begin
+            Integer(params[:id])
+            query = {setlist_id: params[:id]}
+        rescue
+           query = {code: params[:id]}
+        end
+
+        query
     end
 end

@@ -1,7 +1,7 @@
 class PublicSetlist < ApplicationRecord
     belongs_to :setlist
 
-    scope :active, -> { where("expires_on > ?", Time.now) }
+    scope :active, -> { where("expires_on > ?", Time.current.utc) }
 
     def to_hash
         setlist = self.setlist
@@ -17,7 +17,8 @@ class PublicSetlist < ApplicationRecord
             songs: songs,
             name: setlist.name,
             code: self.code,
-            link: "#{ENV['PUBLIC_WEB_APP_BASE_URL']}/setlists/#{self.code}"
+            link: "#{ENV['PUBLIC_WEB_APP_BASE_URL']}/setlists/#{self.code}",
+            expires_on: self.expires_on
         }
 
         setlist.as_json
