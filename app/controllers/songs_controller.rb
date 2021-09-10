@@ -107,14 +107,14 @@ class SongsController < ApplicationController
   end
 
   def can_edit_songs
-    return_forbidden unless @current_member.can? VIEW_SONGS
+    return_forbidden unless @current_member.can? EDIT_SONGS
   end
 
   def can_delete_songs
-    return_forbidden unless @current_member.can? VIEW_SONGS
+    return_forbidden unless @current_member.can? DELETE_SONGS
   end
 
   def can_add_songs
-    return_forbidden unless @current_member.can? VIEW_SONGS
+    return_forbidden unless @current_member.can? ADD_SONGS
   end
 end

@@ -1,37 +1,53 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-        FORBIDDEN_MESSAGE = "You do not have adequate permissions to perform this action"
-        VIEW_SONGS = "View songs"
-        EDIT_SONGS = "Edit songs"
-        DELETE_SONGS = "Delete songs"
-        ADD_SONGS = "Add songs"
+  FORBIDDEN_MESSAGE = 'You do not have adequate permissions to perform this action'.freeze
+  VIEW_SONGS = 'View songs'.freeze
+  EDIT_SONGS = 'Edit songs'.freeze
+  DELETE_SONGS = 'Delete songs'.freeze
+  ADD_SONGS = 'Add songs'.freeze
 
+  VIEW_BINDERS = 'View binders'.freeze
+  EDIT_BINDERS = 'Edit binders'.freeze
+  DELETE_BINDERS = 'Delete binders'.freeze
+  ADD_BINDERS = 'Add binders'.freeze
+  
+  VIEW_SETLISTS = 'View sets'.freeze
+  EDIT_SETLISTS = 'Edit sets'.freeze
+  DELETE_SETLISTS = 'Delete sets'.freeze
+  ADD_SETLISTS = 'Add sets'.freeze
+  PUBLISH_SETLISTS = 'Publish sets'.freeze
 
-        private
-        def authenticate_team
-                set_current_user
-                unless @current_user.belongs_to_team?(params[:team_id])
-                        return render json: {errors: ["You do not have access to this team's resources"]}, status: 403
-                else
-                        @current_member = @current_user.memberships.find_by(team_id: params[:team_id])
-                end
-        end
-        def set_current_user
-                @current_user = User.find(current_user.id)
-        end
+  EDIT_TEAM = 'Edit team'.freeze
+  DELETE_TEAM = 'Delete team'.freeze
 
-        def name_passed?
-                params.key?(:name)
-        end
+  ADD_MEMBERS = 'Add members'.freeze
+  REMOVE_MEMBERS = 'Remove members'.freeze
 
-        def authenticate_admin
-                unless @current_user.is_admin
-                        return render  status: 403
-                end
-        end
+  private
 
-        def return_forbidden
-                return render json: FORBIDDEN_MESSAGE, status: 403
-        end
+  def authenticate_team
+    set_current_user
+    if @current_user.belongs_to_team?(params[:team_id])
+      @current_member = @current_user.memberships.find_by(team_id: params[:team_id])
+    else
+      return render json: { errors: ['You do not have access to this team\'s resources'] }, status: :forbidden
+    end
+  end
+
+  def set_current_user
+    @current_user = User.find(current_user.id)
+  end
+
+  def name_passed?
+    params.key?(:name)
+  end
+
+  def authenticate_admin
+    return render status: :forbidden unless @current_user.is_admin
+  end
+
+  def return_forbidden
+    return render json: FORBIDDEN_MESSAGE, status: :forbidden
+  end
 end

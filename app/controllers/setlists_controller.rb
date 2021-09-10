@@ -1,12 +1,16 @@
 class SetlistsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_team
+
+  before_action :authenticate_user!, :authenticate_team
+  before_action :can_add_setlists, only: [:create]
+  before_action :can_edit_setlists, only: [:update, :add_songs, :remove_songs, :update_scheduled_song]
+  before_action :can_delete_setlists, only: [:destroy]
+  before_action :can_view_setlists, only: [:index, :show]
   before_action :set_setlist, only: [:show, :update, :destroy, :add_songs, :remove_songs, :update_scheduled_song]
 
   # GET /setlists
   def index
     @setlists = Setlist.includes(:songs).where(team_id: params[:team_id])
-    @setlists = @setlists.where("name ILIKE ?", "%#{params[:name]}%") if name_passed?
+    @setlists = @setlists.where('name ILIKE ?', "%#{params[:name]}%") if name_passed?
     render json: @setlists, include: :songs
   end
 
@@ -14,7 +18,7 @@ class SetlistsController < ApplicationController
   def show
     songs_with_positions = @setlist.songs_with_positions(@current_user)
     @setlist = @setlist.as_json
-    @setlist["songs"] = songs_with_positions
+    @setlist['songs'] = songs_with_positions
     render json: @setlist
   end
 
@@ -61,14 +65,31 @@ class SetlistsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_setlist
-      id_to_find_by = params[:setlist_id] ? params[:setlist_id] : params[:id]
-      @setlist = Setlist.find(id_to_find_by)
-    end
 
-    # Only allow a list of trusted parameters through.
-    def setlist_params
-      params.require(:setlist).permit([:id, :name, :scheduled_date, :team_id, :song_ids])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_setlist
+    id_to_find_by = params[:setlist_id] || params[:id]
+    @setlist = Setlist.find(id_to_find_by)
+  end
+
+  # Only allow a list of trusted parameters through.
+  def setlist_params
+    params.require(:setlist).permit([:id, :name, :scheduled_date, :team_id, :song_ids])
+  end
+
+  def can_view_setlists
+    return_forbidden unless @current_member.can? VIEW_SETLISTS
+  end
+
+  def can_edit_setlists
+    return_forbidden unless @current_member.can? EDIT_SETLISTS
+  end
+
+  def can_delete_setlists
+    return_forbidden unless @current_member.can? DELETE_SETLISTS
+  end
+
+  def can_add_setlists
+    return_forbidden unless @current_member.can? ADD_SETLISTS
+  end
 end

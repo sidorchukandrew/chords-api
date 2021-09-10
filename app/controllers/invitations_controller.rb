@@ -1,6 +1,8 @@
 class InvitationsController < ApplicationController
+
   before_action :authenticate_user!, except: [:claim, :signup_through_invitation]
   before_action :authenticate_team, except: [:claim, :signup_through_invitation]
+  before_action :can_add_members, only: [:resend, :create, :destroy]
   before_action :set_invitation, only: [:show, :update, :destroy, :resend]
 
   # GET /invitations
@@ -115,4 +117,8 @@ class InvitationsController < ApplicationController
 
       render json: {team_id: team_id}
     end
+  
+  def can_add_members
+    return_forbidden unless @current_member.can ADD_MEMBERS
+  end
 end

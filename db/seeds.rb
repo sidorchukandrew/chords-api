@@ -85,9 +85,32 @@ Permission.find_or_create_by!(name: "Add sets") do |permission|
     permission.description = "Allow user to create sets"
 end
 
-Role.find_or_create_by!(name: "Admin") do |role|
+Permission.find_or_create_by!(name: "Publish sets") do |permission|
+    permission.description = "Allow user to publish sets"
+end
+
+Permission.find_or_create_by!(name: "Edit team") do |permission|
+    permission.description = "Allow user to edit team information like name and profile picture"
+end
+
+Permission.find_or_create_by!(name: "Delete team") do |permission|
+    permission.description = "Allow user to delete team"
+end
+
+Permission.find_or_create_by!(name: "Add members") do |permission|
+    permission.description = "Allow user to add members to the team and resend or cancel invitations"
+end
+
+Permission.find_or_create_by!(name: "Remove members") do |permission|
+    permission.description = "Allow user to remove members from the team"
+end
+
+admin = Role.find_or_create_by(name: "Admin") do |role|
     role.permissions = Permission.all
 end
+
+admin.permissions = Permission.all
+admin.save
 
 Role.find_or_create_by!(name: "Member") do |role|
     role.permissions = Permission.where(name: ["View sets", "View songs", "View binders"])
