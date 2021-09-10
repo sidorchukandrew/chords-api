@@ -1,18 +1,19 @@
 class Team < ApplicationRecord
-    has_many :memberships, dependent: :delete_all
+    has_many :memberships, dependent: :destroy
     has_many :users, through: :memberships
-    has_many :binders, dependent: :delete_all
-    has_many :songs, dependent: :delete_all
-    has_many :themes, dependent: :delete_all
-    has_many :invitations, dependent: :delete_all
-    has_many :setlists, dependent: :delete_all
-
+    has_many :binders, dependent: :destroy
+    has_many :songs, dependent: :destroy
+    has_many :themes, dependent: :destroy
+    has_many :invitations, dependent: :destroy
+    has_many :setlists, dependent: :destroy
+    has_many :roles, dependent: :destroy
     has_one_attached :image
 
     def make_admin(user)
         @membership = Membership.new do |membership|
             membership.user = user
             membership.is_admin = true
+            membership.role = Role.find_by(name: "Admin")
         end
 
         self.memberships << @membership

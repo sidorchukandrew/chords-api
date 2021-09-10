@@ -32,3 +32,63 @@ Genre.find_or_create_by!(name: "Latin")
 Genre.find_or_create_by!(name: "Latin")
 Genre.find_or_create_by!(name: "Opera")
 Genre.find_or_create_by!(name: "World")  
+
+Permission.find_or_create_by!(name: "View songs") do |permission|
+    permission.description = "Allow user to view all songs"
+end
+
+Permission.find_or_create_by!(name: "Edit songs") do |permission|
+    permission.description = "Allow user to edit any songs"
+end
+
+Permission.find_or_create_by!(name: "Delete songs") do |permission|
+    permission.description = "Allow user to delete any songs"
+end
+
+Permission.find_or_create_by!(name: "Add songs") do |permission|
+    permission.description = "Allow user to create or import songs"
+end
+
+
+
+Permission.find_or_create_by!(name: "View binders") do |permission|
+    permission.description = "Allow user to view all binders"
+end
+
+Permission.find_or_create_by!(name: "Edit binders") do |permission|
+    permission.description = "Allow user to edit any binders"
+end
+
+Permission.find_or_create_by!(name: "Delete binders") do |permission|
+    permission.description = "Allow user to delete any binders"
+end
+
+Permission.find_or_create_by!(name: "Add binders") do |permission|
+    permission.description = "Allow user to create binders"
+end
+
+
+
+Permission.find_or_create_by!(name: "View sets") do |permission|
+    permission.description = "Allow user to view all sets"
+end
+
+Permission.find_or_create_by!(name: "Edit sets") do |permission|
+    permission.description = "Allow user to edit any sets"
+end
+
+Permission.find_or_create_by!(name: "Delete sets") do |permission|
+    permission.description = "Allow user to delete any sets"
+end
+
+Permission.find_or_create_by!(name: "Add sets") do |permission|
+    permission.description = "Allow user to create sets"
+end
+
+Role.find_or_create_by!(name: "Admin") do |role|
+    role.permissions = Permission.all
+end
+
+Role.find_or_create_by!(name: "Member") do |role|
+    role.permissions = Permission.where(name: ["View sets", "View songs", "View binders"])
+end

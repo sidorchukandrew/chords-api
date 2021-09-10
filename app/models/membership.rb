@@ -1,15 +1,23 @@
 class Membership < ApplicationRecord
-    belongs_to :team
-    belongs_to :user
+  belongs_to :team
+  belongs_to :user
+  belongs_to :role
 
-    def to_hash
-        membership = self.as_json
-        membership[:id] = self.user.id
-        membership[:email] = self.user.email
-        membership[:first_name] = self.user.first_name
-        membership[:last_name] = self.user.last_name
-        membership[:image_url] = self.user.profile_picture.url
-        
-        membership.as_json
-    end
+  def to_hash
+    membership = as_json
+    membership[:id] = user.id
+    membership[:email] = user.email
+    membership[:first_name] = user.first_name
+    membership[:last_name] = user.last_name
+    membership[:image_url] = user.profile_picture.url
+    
+    membership.as_json
+  end
+
+  def can?(permission)
+    puts "Checking if has permission #{permission}"
+    role.present? && role.permissions.where(name: permission).exists?
+  end
 end
+
+

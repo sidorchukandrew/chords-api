@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
          :recoverable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
 
-  has_many :invitations
-  has_many :memberships
+  has_many :invitations, dependent: :destroy
+  has_many :memberships, dependent: :destroy
   has_many :teams, through: :memberships
   has_one_attached :profile_picture
 
@@ -43,7 +43,6 @@ class User < ActiveRecord::Base
   end
 
   def refresh_pco_token
-    puts "REFRESHING PCO ACCESS TOKEN"
     token_response = pco_api.oauth.token.post(refresh_token_params(self.pco_refresh_token))
     self.pco_access_token = token_response["access_token"]
     self.pco_refresh_token = token_response["refresh_token"]
