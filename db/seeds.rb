@@ -124,18 +124,3 @@ end
 Permission.find_or_create_by!(name: "Assign roles") do |permission|
     permission.description = "Allow user to assign roles to other members"
 end
-
-admin = Role.find_or_create_by(name: "Admin") do |role|
-    role.permissions = Permission.all
-    role.is_admin = true
-    role.description = "Members in this role have full access and privileges."
-end
-
-admin.permissions = Permission.all
-admin.save
-
-Role.find_or_create_by!(name: "Member") do |role|
-    role.permissions = Permission.where(name: ["View sets", "View songs", "View binders"])
-    role.is_member = true
-    role.description = "Members in this role have read only access to songs, binders and sets. Members receive this role by default when they join a team. "
-end
