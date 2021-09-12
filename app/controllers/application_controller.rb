@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   EDIT_BINDERS = 'Edit binders'.freeze
   DELETE_BINDERS = 'Delete binders'.freeze
   ADD_BINDERS = 'Add binders'.freeze
-  
+
   VIEW_SETLISTS = 'View sets'.freeze
   EDIT_SETLISTS = 'Edit sets'.freeze
   DELETE_SETLISTS = 'Delete sets'.freeze
@@ -23,6 +23,12 @@ class ApplicationController < ActionController::API
 
   ADD_MEMBERS = 'Add members'.freeze
   REMOVE_MEMBERS = 'Remove members'.freeze
+
+  VIEW_ROLES = 'View roles'.freeze
+  ADD_ROLES = 'Add roles'.freeze
+  EDIT_ROLES = 'Edit roles'.freeze
+  DELETE_ROLES = 'Delete roles'.freeze
+  ASSIGN_ROLES = 'Assign roles'.freeze
 
   private
 

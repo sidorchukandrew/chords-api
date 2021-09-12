@@ -14,23 +14,13 @@ class UsersController < ApplicationController
   end
 
   def update_membership
-    if admin_params? && !@current_user.is_admin?(params[:team_id])
-      return render json: { message: 'You need to be an admin of this team to perform this operation' },
-                            status: :unauthorized
-    end
-
     @membership = @user.memberships.find_by_team_id(params[:team_id])
     @membership.update(membership_params)
     render json: @membership
   end
 
   def remove_membership
-    if @current_user.is_admin?(params[:team_id])
-      @user.leave_team(params[:team_id])
-    else
-      render json: { message: 'You need to be an admin of this team to perform this operation' },
-                      status: :unauthorized
-    end
+    @user.leave_team(params[:team_id])
   end
 
   def show_membership
@@ -58,12 +48,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(%i[first_name last_name])
   end
 
-  def admin_params?
-    params.key?(:is_admin)
-  end
-
   def membership_params
-    params.permit(%i[is_admin position])
+    params.permit(%i[position])
   end
 
   def can_remove_members

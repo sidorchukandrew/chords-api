@@ -105,8 +105,30 @@ Permission.find_or_create_by!(name: "Remove members") do |permission|
     permission.description = "Allow user to remove members from the team"
 end
 
+Permission.find_or_create_by!(name: "View roles") do |permission|
+    permission.description = "Allow user to view the role configuration page"
+end
+
+Permission.find_or_create_by!(name: "Add roles") do |permission|
+    permission.description = "Allow user to create new roles in the team"
+end
+
+Permission.find_or_create_by!(name: "Delete roles") do |permission|
+    permission.description = "Allow user to delete roles in the team"
+end
+
+Permission.find_or_create_by!(name: "Edit roles") do |permission|
+    permission.description = "Allow user to edit roles, such as adding and removing permissions to the role"
+end
+
+Permission.find_or_create_by!(name: "Assign roles") do |permission|
+    permission.description = "Allow user to assign roles to other members"
+end
+
 admin = Role.find_or_create_by(name: "Admin") do |role|
     role.permissions = Permission.all
+    role.is_admin = true
+    role.description = "Members in this role have full access and privileges."
 end
 
 admin.permissions = Permission.all
@@ -114,4 +136,6 @@ admin.save
 
 Role.find_or_create_by!(name: "Member") do |role|
     role.permissions = Permission.where(name: ["View sets", "View songs", "View binders"])
+    role.is_member = true
+    role.description = "Members in this role have read only access to songs, binders and sets. Members receive this role by default when they join a team. "
 end

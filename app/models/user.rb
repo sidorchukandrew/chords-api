@@ -18,21 +18,14 @@ class User < ActiveRecord::Base
     self.teams.exists?(team_id)
   end
 
-  def join_team(team)
-    if team.class == Integer
-      self.memberships.find_or_create_by(team_id: team)
-    else
-      self.teams << team
+  def join_team(team_id)
+    memberships.find_or_create_by!(team_id: team_id) do |membership|
+      membership.role = Role.find_or_create_by!(name: 'Member', team_id: team_id)
     end
   end
 
   def leave_team(team_id)
-    self.memberships.find_by_team_id(team_id).destroy
-  end
-
-  def is_admin?(team_id)
-    membership = self.memberships.find_by_team_id(team_id)
-    membership.is_admin
+    memberships.find_by_team_id(team_id).destroy
   end
 
   def add_pco_token(token)

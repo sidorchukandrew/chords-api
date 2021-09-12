@@ -25,6 +25,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     
     if @team.save
+      @team.add_default_roles
       @team.make_admin(@current_user)
       render json: @team, status: :created, location: @team
     else
@@ -47,13 +48,14 @@ class TeamsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = User.find(@current_user.id).teams.find(params[:team_id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def team_params
-      params.require(:team).permit([:name, :team_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_team
+    @team = User.find(@current_user.id).teams.find(params[:team_id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def team_params
+    params.require(:team).permit([:name, :team_id])
+  end
 end

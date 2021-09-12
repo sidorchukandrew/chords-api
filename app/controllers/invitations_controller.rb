@@ -92,31 +92,32 @@ class InvitationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_invitation
-      invitation_id = params[:id] ? params[:id] : params[:invitation_id]
-      @invitation = Invitation.where(id: invitation_id, team_id: params[:team_id]).first
+  
+  # Use callbacks to share common setup or constraints between actions.
+  def set_invitation
+    invitation_id = params[:id] ? params[:id] : params[:invitation_id]
+    @invitation = Invitation.where(id: invitation_id, team_id: params[:team_id]).first
+  end
+
+  # Only allow a list of trusted parameters through.
+  def invitation_params
+    params.require(:invitation).permit([:email, :team_id])
+  end
+
+  def complete_claim(user)
+    team_id = @invitation.team_id
+    @invitation.delete
+
+    new_auth_header = user.create_new_auth_token
+
+    if new_auth_header["uid"] == ""
+      new_auth_header["uid"] = user.email
     end
+    
+    response.headers.merge!(new_auth_header)
 
-    # Only allow a list of trusted parameters through.
-    def invitation_params
-      params.require(:invitation).permit([:email, :team_id])
-    end
-
-    def complete_claim(user)
-      team_id = @invitation.team_id
-      @invitation.delete
-
-      new_auth_header = user.create_new_auth_token
-
-      if new_auth_header["uid"] == ""
-        new_auth_header["uid"] = user.email
-      end
-      
-      response.headers.merge!(new_auth_header)
-
-      render json: {team_id: team_id}
-    end
+    render json: {team_id: team_id}
+  end
   
   def can_add_members
     return_forbidden unless @current_member.can ADD_MEMBERS

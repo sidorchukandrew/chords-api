@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   
   # teams
   resources :teams, param: :team_id
+  get '/teams/:team_id/memberships', to: 'team_memberships#index'
 
   # users
   get "/users/me", to: "users#me"
@@ -101,5 +102,14 @@ Rails.application.routes.draw do
   end
   
   post "/feedback", to: "feedback#create"
+
+  resources :roles
+  post "/roles/:id/memberships", to: "roles#assign_role_bulk"
+
+  delete "/roles/:id/permissions", to: "roles#remove_permission"
+  post "/roles/:id/permissions", to: "roles#add_permission"
+
+  resources :permissions, only: [:show, :index]
   
+  post '/memberships/:id/role', to: 'memberships#assign_role'
 end
