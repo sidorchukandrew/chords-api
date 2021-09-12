@@ -120,6 +120,6 @@ class InvitationsController < ApplicationController
   end
   
   def can_add_members
-    return_forbidden unless @current_member.can ADD_MEMBERS
+    return_forbidden unless @current_member.can? ADD_MEMBERS
   end
 end
