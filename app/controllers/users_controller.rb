@@ -53,6 +53,6 @@ class UsersController < ApplicationController
   end
 
   def can_remove_members
-    return_forbidden unless @current_member.can REMOVE_MEMBERS
+    return_forbidden unless @current_member.can? REMOVE_MEMBERS
   end
 end
