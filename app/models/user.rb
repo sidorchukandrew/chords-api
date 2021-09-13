@@ -45,17 +45,18 @@ class User < ActiveRecord::Base
 
   def to_hash
     user_hash = {
-        id: self.id,
-        uid: self.uid,
-        email: self.email,
-        created_at: self.created_at,
-        first_name: self.first_name,
-        last_name: self.last_name,
-        image_url: self.profile_picture.url,
+        id: id,
+        uid: uid,
+        email: email,
+        created_at: created_at,
+        first_name: first_name,
+        last_name: last_name,
+        image_url: profile_picture.variant(resize_to_limit: [200, 200]).url,
         pco_connected: pco_token_active?
     }
 
     user_hash
+    # .variant(resize_to_limit: [200, 200])
   end
 
   private
