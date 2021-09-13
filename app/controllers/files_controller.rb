@@ -15,7 +15,7 @@ class FilesController < ApplicationController
     def create_team_image
         @team = Team.find(params[:team_id])
         @team.image.attach(params[:image])
-        render json: @team.image.variant(resize_to_limit: [200, 200]).url
+        render json: @team.image.variant(resize_to_limit: [200, 200]).processed.url
     end
 
     def delete_team_image

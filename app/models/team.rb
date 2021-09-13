@@ -28,7 +28,7 @@ class Team < ApplicationRecord
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name,
-          image_url: user.profile_picture.variant(resize_to_limit: [200, 200]).url,
+          image_url: user.profile_picture.variant(resize_to_limit: [200, 200]).processed.url,
           position: membership.position,
           joined_team_at: membership.created_at
         }
@@ -41,7 +41,7 @@ class Team < ApplicationRecord
       id: self.id,
       created_at: self.created_at,
       updated_at: self.updated_at,
-      image_url: self.image&.variant(resize_to_limit: [200, 200]).url,
+      image_url: self.image&.variant(resize_to_limit: [200, 200]).processed.url,
       memberships: self.memberships
     }
   end
@@ -52,7 +52,7 @@ class Team < ApplicationRecord
       id: self.id,
       created_at: self.created_at,
       updated_at: self.updated_at,
-      image_url: self.image&.variant(resize_to_limit: [200, 200]).url
+      image_url: self.image&.variant(resize_to_limit: [200, 200]).processed.url
     }
   end
 
