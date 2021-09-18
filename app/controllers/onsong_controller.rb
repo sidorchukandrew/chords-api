@@ -9,7 +9,9 @@ class OnsongController < ApplicationController
     @files = @import.unzip(params[:backup])
     @import.backup.attach(params[:backup])
     puts 'Attached!'
-    @import.save
+    puts "Team id: #{@import.team_id}" if @import.save
+
+    puts "Backup: #{@import.backup.url}"
 
     render json: @files
   end
