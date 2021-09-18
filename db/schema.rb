@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_12_054042) do
+ActiveRecord::Schema.define(version: 2021_09_14_225226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,13 @@ ActiveRecord::Schema.define(version: 2021_09_12_054042) do
     t.index ["role_id"], name: "index_memberships_on_role_id"
     t.index ["team_id"], name: "index_memberships_on_team_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "onsong_imports", force: :cascade do |t|
+    t.bigint "team_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id"], name: "index_onsong_imports_on_team_id"
   end
 
   create_table "permissions", force: :cascade do |t|

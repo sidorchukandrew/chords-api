@@ -103,13 +103,22 @@ Rails.application.routes.draw do
   
   post "/feedback", to: "feedback#create"
 
+  # roles
+
   resources :roles
   post "/roles/:id/memberships", to: "roles#assign_role_bulk"
 
   delete "/roles/:id/permissions", to: "roles#remove_permission"
   post "/roles/:id/permissions", to: "roles#add_permission"
 
+  # permissions
   resources :permissions, only: [:show, :index]
   
   post '/memberships/:id/role', to: 'memberships#assign_role'
+
+  # onsong
+  scope '/onsong' do
+    post 'unzip', to: 'onsong#unzip'
+    post 'import', to: "onsong#import"
+  end
 end
