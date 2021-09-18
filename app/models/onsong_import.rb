@@ -11,14 +11,18 @@ class OnsongImport < ApplicationRecord
   end
 
   def create_songs(imported_songs, binder)
+    puts "Importing: #{imported_songs}, binder: #{binder}"
     @songs_to_save = imported_songs
     @binder = Binder.where(id: binder).first
 
     if backup.attached?
+      puts 'Backup attached'
       backup.open do |temp_file|
         @backup_temp_file = temp_file
         save_songs
       end
+    else
+      puts 'Not attached'
     end
   end
 
