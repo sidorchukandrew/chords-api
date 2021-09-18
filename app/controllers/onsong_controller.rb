@@ -9,12 +9,13 @@ class OnsongController < ApplicationController
     @files = @import.unzip(params[:backup])
     @import.backup.attach(params[:backup])
 
-    puts "Backup: #{@import.backup.attached?}"
+    puts "Import id: #{@import.id}"
 
     render json: @files
   end
 
   def import
+    puts "Import id: #{@import.id}"
     @import.create_songs(params[:songs], params[:binder_id])
     render json: { errors: @import.custom_errors }, status: :unprocessable_entity if @import.custom_errors.present?
   end
