@@ -9,6 +9,8 @@ class OnsongController < ApplicationController
     @files = @import.unzip(params[:backup])
     @import.backup.attach(params[:backup])
 
+    @import.save
+
     puts "Import id: #{@import.id}"
 
     render json: @files
