@@ -47,11 +47,15 @@ class OnsongImport < ApplicationRecord
   def save_songs
     Zip.force_entry_names_encoding = 'UTF-8'
     Zip::File.open(@backup_temp_file) do |zip|
+      puts 'Zip opened'
       all_songs = songs_with_index(zip)
+      puts "Mapped songs: #{all_songs}"
 
       selected_songs = all_songs.filter do |song|
         @songs_to_save.any? { |song_to_save| matches?(song_to_save, song) }
       end
+
+      puts "Selected songs: #{selected_songs}"
 
       selected_songs.each { |song| save_song(song) }
 

@@ -8,6 +8,7 @@ class OnsongController < ApplicationController
     @import = OnsongImport.new(import_params)
     @files = @import.unzip(params[:backup])
     @import.backup.attach(params[:backup])
+    puts 'Attached!'
     @import.save
 
     render json: @files
