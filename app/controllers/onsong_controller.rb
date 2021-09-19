@@ -13,19 +13,20 @@ class OnsongController < ApplicationController
 
     puts "Import id: #{@import.id}"
 
-    render json: @files
+    render json: {files: @files, id: @import.id}
   end
 
   def import
     puts "Import id: #{@import.id}"
-    @import.create_songs(params[:songs], params[:binder_id])
-    render json: { errors: @import.custom_errors }, status: :unprocessable_entity if @import.custom_errors.present?
+    @errors = @import.create_songs(params[:songs], params[:binder_id]).custom_errors
+    @import.destroy
+    render json: { errors: custom_errors }, status: :unprocessable_entity if custom_errors.present?
   end
 
   private
 
   def set_import
-    @import = OnsongImport.find_by(team_id: params[:team_id])
+    @import = OnsongImport.find_by(team_id: params[:team_id], id: params[:id])
   end
 
   def can_add_songs?

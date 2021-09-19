@@ -119,6 +119,6 @@ Rails.application.routes.draw do
   # onsong
   scope '/onsong' do
     post 'unzip', to: 'onsong#unzip'
-    post 'import', to: "onsong#import"
+    post 'import/:id', to: "onsong#import"
   end
 end
