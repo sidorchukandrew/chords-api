@@ -49,17 +49,15 @@ class OnsongImport < ApplicationRecord
     Zip::File.open(@backup_temp_file) do |zip|
       puts 'Zip opened'
       all_songs = songs_with_index(zip)
-      puts "Mapped songs: #{all_songs}"
 
       selected_songs = all_songs.filter do |song|
         @songs_to_save.any? { |song_to_save| matches?(song_to_save, song) }
       end
 
-      puts "Selected songs: #{selected_songs}"
-
       selected_songs.each { |song| save_song(song) }
 
       retry_with_other_encoding unless @custom_errors.nil?
+      puts 'Purging backup'
       backup.purge
       self
     end

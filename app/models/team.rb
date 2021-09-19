@@ -8,6 +8,7 @@ class Team < ApplicationRecord
   has_many :setlists, dependent: :destroy
   has_many :roles, dependent: :destroy
   has_one_attached :image
+  has_one :onsong_import
 
   def make_admin(user)
     @membership = Membership.new do |membership|
