@@ -18,9 +18,9 @@ class OnsongController < ApplicationController
 
   def import
     puts "Import id: #{@import.id}"
-    @errors = @import.create_songs(params[:songs], params[:binder_id]).custom_errors
+    errors = @import.create_songs(params[:songs], params[:binder_id]).custom_errors
     @import.destroy
-    render json: { errors: custom_errors }, status: :unprocessable_entity if custom_errors.present?
+    render json: { errors: errors }, status: :unprocessable_entity if errors.present?
   end
 
   private
