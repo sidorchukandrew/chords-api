@@ -121,4 +121,16 @@ Rails.application.routes.draw do
     post 'unzip', to: 'onsong#unzip'
     post 'import/:id', to: "onsong#import"
   end
+
+  # stripe webhooks
+  scope '/stripe/webhooks' do
+    post 'trial_will_end', to: 'stripe_webhooks#trial_will_end'
+    post 'subscription_updated', to: 'stripe_webhooks#subscription_updated'
+    post 'subscription_cancelled', to: 'stripe_webhooks#subscription_cancelled'
+  end
+
+  # billing
+  scope '/billing' do
+    post 'customer_portal_sessions', to: 'customer_portal_sessions#create'
+  end
 end

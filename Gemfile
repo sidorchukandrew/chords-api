@@ -37,6 +37,8 @@ gem 'pg'
 
 gem 'ruby-trello'
 
+gem 'stripe'
+
 gem 'image_processing'
 
 gem 'rubyzip'

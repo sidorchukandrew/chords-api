@@ -1,18 +1,21 @@
 # frozen_string_literal: true
 
-include PcoUtils
+require 'stripe'
 class User < ActiveRecord::Base
   extend Devise::Models
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
+  include PcoUtils
+  include Billable
 
   has_many :invitations, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :teams, through: :memberships
   has_one_attached :profile_picture
+  has_many :subscriptions
+
+  before_create :add_to_stripe
 
   def belongs_to_team?(team_id)
     self.teams.exists?(team_id)
@@ -32,15 +35,15 @@ class User < ActiveRecord::Base
     self.pco_access_token = token.token
     self.pco_refresh_token = token.refresh_token
     self.pco_token_expires_at = Time.at(token.expires_at)
-    self.save
+    save
   end
 
   def refresh_pco_token
-    token_response = pco_api.oauth.token.post(refresh_token_params(self.pco_refresh_token))
-    self.pco_access_token = token_response["access_token"]
-    self.pco_refresh_token = token_response["refresh_token"]
-    self.pco_token_expires_at = Time.at(Time.now + token_response["expires_in"].seconds)
-    self.save
+    token_response = pco_api.oauth.token.post(refresh_token_params(pco_refresh_token))
+    self.pco_access_token = token_response['access_token']
+    self.pco_refresh_token = token_response['refresh_token']
+    self.pco_token_expires_at = Time.at(Time.now + token_response['expires_in'].seconds)
+    save
   end
 
   def to_hash
@@ -74,5 +77,10 @@ class User < ActiveRecord::Base
 
   def pco_api
     PCO::API.new(oauth_access_token: self.pco_access_token, url: API_URL)
+  end
+
+  def add_to_stripe
+    customer = Stripe::Customer.create(email: email)
+    self.customer_id = customer.id
   end
 end

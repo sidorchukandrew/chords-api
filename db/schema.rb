@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_14_225226) do
+ActiveRecord::Schema.define(version: 2021_10_06_010800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,6 +205,24 @@ ActiveRecord::Schema.define(version: 2021_09_14_225226) do
     t.index ["theme_id", "song_id"], name: "index_songs_themes_on_theme_id_and_song_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "user_id"
+    t.string "plan_name"
+    t.string "stripe_product_id"
+    t.string "stripe_price_id"
+    t.string "stripe_subscription_id"
+    t.boolean "calendar_enabled", default: false
+    t.integer "max_songs", default: 100
+    t.integer "max_setlists", default: 25
+    t.integer "max_binders", default: 5
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+    t.index ["team_id"], name: "index_subscriptions_on_team_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -242,6 +260,7 @@ ActiveRecord::Schema.define(version: 2021_09_14_225226) do
     t.string "pco_refresh_token"
     t.datetime "pco_token_expires_at"
     t.boolean "is_admin", default: false
+    t.string "customer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -14,10 +14,10 @@ class TeamsController < ApplicationController
 
   # GET /teams/1
   def show
-    @team = Team.find(params[:team_id])
+    @team = Team.includes(:memberships, :subscription).find(params[:team_id])
     members = @team.members
     
-    render json: {team: @team.with_image, members: members}
+    render json: { team: @team.with_image, members: members, subscription: @team.subscription }
   end
 
   # POST /teams
@@ -27,6 +27,7 @@ class TeamsController < ApplicationController
     if @team.save
       @team.add_default_roles
       @team.make_admin(@current_user)
+      @team.subscribe(@current_user, params[:plan])
       render json: @team, status: :created, location: @team
     else
       render json: @team.errors, status: :unprocessable_entity

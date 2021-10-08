@@ -1,4 +1,6 @@
 class Team < ApplicationRecord
+  include Subscribable
+
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
   has_many :binders, dependent: :destroy
@@ -9,6 +11,9 @@ class Team < ApplicationRecord
   has_many :roles, dependent: :destroy
   has_one_attached :image
   has_one :onsong_import
+  has_one :subscription, dependent: :destroy
+
+  before_destroy :cancel_subscription
 
   def make_admin(user)
     @membership = Membership.new do |membership|
