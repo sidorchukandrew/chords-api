@@ -67,8 +67,6 @@ Permission.find_or_create_by!(name: "Add binders") do |permission|
     permission.description = "Allow user to create binders"
 end
 
-
-
 Permission.find_or_create_by!(name: "View sets") do |permission|
     permission.description = "Allow user to view all sets"
 end
@@ -124,3 +122,26 @@ end
 Permission.find_or_create_by!(name: "Assign roles") do |permission|
     permission.description = "Allow user to assign roles to other members"
 end
+
+Permission.find_or_create_by!(name: "View events") do |permission|
+    permission.description = "Allow user to view events on a calendar"
+end
+
+Permission.find_or_create_by!(name: "Add events") do |permission|
+    permission.description = "Allow user to add events to the calendar"
+end
+
+Permission.find_or_create_by!(name: "Delete events") do |permission|
+    permission.description = "Allow user to delete events from the calendar"
+end
+
+Permission.find_or_create_by!(name: "Edit events") do |permission|
+    permission.description = "Allow user to edit events, such as modifying notifications and members"
+end
+
+admins = Role.where(is_admin: true)
+all_permissions = Permission.all
+admins.each { |admin| admin.permissions.replace(all_permissions) }
+
+members = Role.where(is_member: true)
+all_view_permissions = Permission.where(name: ['View songs', 'View binders', 'View sets', 'View events'])

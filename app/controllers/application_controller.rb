@@ -30,12 +30,18 @@ class ApplicationController < ActionController::API
   DELETE_ROLES = 'Delete roles'.freeze
   ASSIGN_ROLES = 'Assign roles'.freeze
 
+  VIEW_EVENTS = 'View events'.freeze
+  ADD_EVENTS = 'Add events'.freeze
+  EDIT_EVENTS = 'Edit events'.freeze
+  DELETE_EVENTS = 'Delete events'.freeze
+
   private
 
   def authenticate_team
     set_current_user
     if @current_user.belongs_to_team?(params[:team_id])
       @current_member = @current_user.memberships.find_by(team_id: params[:team_id])
+      @current_subscription = Subscription.find_by(team_id: params[:team_id])
     else
       return render json: { errors: ['You do not have access to this team\'s resources'] }, status: :forbidden
     end

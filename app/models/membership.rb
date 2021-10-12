@@ -2,6 +2,7 @@ class Membership < ApplicationRecord
   belongs_to :team
   belongs_to :user
   belongs_to :role
+  has_and_belongs_to_many :events
 
   def to_hash
     membership = as_json
