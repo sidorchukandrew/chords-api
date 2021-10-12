@@ -7,8 +7,8 @@ class Event < ApplicationRecord
   validates :start_time, presence: true
   validate :members_in_team?
 
-  private 
-  
+  private
+
   def members_in_team?
     if membership_ids
       team_member_ids = Membership.where(team_id: team_id).ids
@@ -17,7 +17,8 @@ class Event < ApplicationRecord
         errors.add(:membership_ids, "Id #{id} does not belong to a member in team #{team_id}") unless team_member_ids.include?(id)
       end
     end
-
   end
 
+  def send_reminder
+  end
 end

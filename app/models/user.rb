@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   include PcoUtils
   include Billable
+  include Notifiable
 
   has_many :invitations, dependent: :destroy
   has_many :memberships, dependent: :destroy
