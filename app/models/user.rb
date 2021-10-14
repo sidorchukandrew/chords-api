@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
   has_many :teams, through: :memberships
   has_one_attached :profile_picture
   has_many :subscriptions
-
+  has_many :notification_settings, dependent: :destroy
+  
   before_create :add_to_stripe
 
   def belongs_to_team?(team_id)
@@ -56,11 +57,12 @@ class User < ActiveRecord::Base
         first_name: first_name,
         last_name: last_name,
         image_url: profile_picture&.variant(resize_to_limit: [200, 200])&.processed&.url,
-        pco_connected: pco_token_active?
+        pco_connected: pco_token_active?,
+        phone_number: phone_number,
+        timezone: timezone
     }
 
     user_hash
-    # .variant(resize_to_limit: [200, 200])
   end
 
   private

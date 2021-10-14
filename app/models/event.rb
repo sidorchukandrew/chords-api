@@ -7,6 +7,8 @@ class Event < ApplicationRecord
   validates :start_time, presence: true
   validate :members_in_team?
 
+  after_create :schedule_reminder
+
   private
 
   def members_in_team?
@@ -19,6 +21,7 @@ class Event < ApplicationRecord
     end
   end
 
-  def send_reminder
+  def schedule_reminder
+    EventRemindersJob.set(wait_until: reminder_date).perform_later(id) if reminders_enabled
   end
 end

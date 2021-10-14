@@ -33,9 +33,9 @@ class UsersController < ApplicationController
   end
 
   def update_me
-    @user = User.find(current_user.id)
+    @user = User.find(@current_user.id)
     @user.update(user_params)
-    render json: @user
+    render json: @user.to_hash
   end
 
   private
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(%i[first_name last_name])
+    params.permit(%i[first_name last_name phone_number timezone])
   end
 
   def membership_params

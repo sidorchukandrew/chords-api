@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_09_210954) do
+ActiveRecord::Schema.define(version: 2021_10_13_035553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,21 @@ ActiveRecord::Schema.define(version: 2021_10_09_210954) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["binder_id"], name: "index_binders_songs_on_binder_id"
     t.index ["song_id"], name: "index_binders_songs_on_song_id"
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "events", force: :cascade do |t|
@@ -140,6 +155,17 @@ ActiveRecord::Schema.define(version: 2021_10_09_210954) do
     t.index ["role_id"], name: "index_memberships_on_role_id"
     t.index ["team_id"], name: "index_memberships_on_team_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "notification_settings", force: :cascade do |t|
+    t.boolean "sms_enabled", default: false
+    t.boolean "email_enabled", default: true
+    t.boolean "app_enabled", default: false
+    t.string "notification_type"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_notification_settings_on_user_id"
   end
 
   create_table "onsong_imports", force: :cascade do |t|
@@ -280,6 +306,8 @@ ActiveRecord::Schema.define(version: 2021_10_09_210954) do
     t.datetime "pco_token_expires_at"
     t.boolean "is_admin", default: false
     t.string "customer_id"
+    t.string "phone_number"
+    t.string "timezone", default: "America/New_York"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -53,12 +53,18 @@ Rails.application.routes.draw do
   get '/teams/:team_id/memberships', to: 'team_memberships#index'
 
   # users
+  scope '/users/me' do
+    resources :notification_settings, only: %i[update index]
+    resources :subscriptions, only: %i[index show]
+  end
+
   get '/users/me', to: 'users#me'
   put '/users/me', to: 'users#update_me'
   get '/users/me/memberships', to: 'users#membership'
   get '/users/:id/memberships/:team_id', to: 'users#show_membership'
   put '/users/:id/memberships/:team_id', to: 'users#update_membership'
   delete '/users/:id/memberships/:team_id', to: 'users#remove_membership'
+
 
   # planning center
   post '/pco/auth', to: 'planning_center#auth'

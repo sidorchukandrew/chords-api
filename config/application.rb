@@ -37,5 +37,6 @@ module ChordsApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.eager_load_paths += %W(#{config.root}/lib)
+    config.active_job.queue_adapter = :delayed_job
   end
 end
