@@ -37,7 +37,7 @@ module Subscribable
     Stripe::Subscription.create({
       customer: billing_user.customer_id,
       items: [{ price: ENV['PRO_PLAN_PRICE_ID'] }],
-      trial_period_days: 1,
+      trial_period_days: 30,
       metadata: {
         team_id: id,
         team_name: name,
