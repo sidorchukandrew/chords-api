@@ -22,8 +22,7 @@ class EventRemindersJob < ApplicationJob
       title: @event.title,
       description: @event.description,
       type: 'Event reminder',
-      body: %(Just a friendly reminder you have #{@event[:title]} coming up on
-              #{@event.start_time.in_time_zone(timezone).strftime('%a %b %e, %I:%M %p')})
+      body: %(Cadence - Just a friendly reminder you have #{@event[:title]} coming up on #{@event.start_time.in_time_zone(timezone).strftime('%a %b %e, %I:%M %p')})
     }
   end
 end

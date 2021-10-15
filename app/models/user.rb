@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :notification_settings, dependent: :destroy
   
   before_create :add_to_stripe
+  after_update :update_in_stripe
 
   def belongs_to_team?(team_id)
     self.teams.exists?(team_id)
@@ -86,4 +87,12 @@ class User < ActiveRecord::Base
     customer = Stripe::Customer.create(email: email)
     self.customer_id = customer.id
   end
+
+  def update_in_stripe
+    Stripe::Customer.update(customer_id, {
+        name: "#{first_name} #{last_name}",
+        phone: phone_number
+    })
+  end
+
 end

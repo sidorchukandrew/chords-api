@@ -145,3 +145,9 @@ admins.each { |admin| admin.permissions.replace(all_permissions) }
 
 members = Role.where(is_member: true)
 all_view_permissions = Permission.where(name: ['View songs', 'View binders', 'View sets', 'View events'])
+
+users = User.all
+
+users.each do |u|
+    NotificationSetting.find_or_create_by!(user: u, notification_type: "Event reminder")
+end
