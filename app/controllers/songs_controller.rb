@@ -22,7 +22,10 @@ class SongsController < ApplicationController
     @song = Song.includes(:themes, :genres, :binders).find(params[:id])
     @format = Format.for_song_and_user(@song, @current_user).first
 
-    @format = Format.for_song(@song).first unless @format.present?
+    if !@format.present?
+      puts 'Using any format on the song'
+      @format = Format.for_song(@song).first unless @format.present?
+    end
 
     song = @song.as_json
     song['format'] = @format || default_format
