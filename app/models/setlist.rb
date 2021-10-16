@@ -50,6 +50,7 @@ class Setlist < ApplicationRecord
             @songs_with_positions = self.scheduled_songs.where(song_id: song_ids).order("position").collect do |schedule_data|
                 song = schedule_data.song
                 format = Format.for_song_and_user(song, current_user).first
+                format = Format.for_song(song).first unless format.present?
                 format = default_format if !format.present?
                 song_with_position = {
                     id: song.id,
@@ -65,6 +66,7 @@ class Setlist < ApplicationRecord
             @songs_with_positions = self.scheduled_songs.order("position").collect do |schedule_data|
                 song = schedule_data.song
                 format = Format.for_song_and_user(song, current_user).first
+                format = Format.for_song(song).first unless format.present?
                 format = default_format if !format.present?
                 song_with_position = {
                     id: song.id,
