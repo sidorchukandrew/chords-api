@@ -138,4 +138,7 @@ Rails.application.routes.draw do
 
   # events
   resources :events
+
+  # dashboard
+  get '/dashboard', to: "dashboard#show"
 end
