@@ -39,7 +39,7 @@ class FormatsController < ApplicationController
     end
 
     def set_format
-      @format = Format.find(id: params[:id}])
+      @format = Format.find(id: params[:id])
     end
 
     def format_config_params
