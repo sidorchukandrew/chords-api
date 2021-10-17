@@ -1,6 +1,6 @@
 class FormatsController < ApplicationController
     before_action :authenticate_user!, :authenticate_team
-    before_action :set_format, except: [:index]
+    before_action :set_format, except: %i[index create]
 
     def index
         user_id = params[:user_id]
@@ -39,7 +39,7 @@ class FormatsController < ApplicationController
     end
 
     def set_format
-          @format = Format.for_user(@current_user.id).for_team(params[:team_id]).where(id: params[:id]).first
+      @format = Format.find(id: params[:id}])
     end
 
     def format_config_params

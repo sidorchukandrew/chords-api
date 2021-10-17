@@ -65,6 +65,7 @@ class StripeWebhooksController < ApplicationController
 
         # TODO: NOTIFY CUSTOMER THAT THEY WERE SUCCESSFULLY DOWNGRADED
         # TODO: DELETE HIGHER SUBSCRIPTION FEATURES
+        @team.events.destroy_all
       rescue ActiveRecord::RecordNotFound
         return
       end

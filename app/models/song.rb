@@ -31,5 +31,4 @@ class Song < ApplicationRecord
     genres.append(Genre.where(id: genre_ids)) if genre_ids && !genre_ids.empty?
   end
 
-  def import_onsong(zip_file); end
 end
