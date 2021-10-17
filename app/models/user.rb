@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :notification_settings, dependent: :destroy
   
   before_create :add_to_stripe
+  after_create :add_notification_settings
   after_update :update_in_stripe
 
   def belongs_to_team?(team_id)

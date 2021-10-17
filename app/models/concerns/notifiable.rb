@@ -1,6 +1,10 @@
 module Notifiable
   extend ActiveSupport::Concern
 
+  def add_notification_settings
+    NotificationSetting.find_or_create_by(user: self, notification_type: 'Event reminder')
+  end
+
   def notify(notification)
     setup notification
     notify_by_email if @settings.email_enabled?
