@@ -34,7 +34,11 @@ Rails.application.routes.draw do
     delete '/genres', to: 'songs#remove_genres'
 
     get '/formats', to: 'formats#index'
+
+    # notes
+    resources :notes
   end
+
 
   # formats
   put '/formats/:id', to: 'formats#update'

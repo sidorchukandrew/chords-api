@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_15_034650) do
+ActiveRecord::Schema.define(version: 2021_10_19_021228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,18 @@ ActiveRecord::Schema.define(version: 2021_10_15_034650) do
     t.index ["role_id"], name: "index_memberships_on_role_id"
     t.index ["team_id"], name: "index_memberships_on_team_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.string "color", default: "yellow"
+    t.integer "line_number"
+    t.text "content"
+    t.bigint "song_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "team_id", null: false
+    t.index ["song_id"], name: "index_notes_on_song_id"
+    t.index ["team_id"], name: "index_notes_on_team_id"
   end
 
   create_table "notification_settings", force: :cascade do |t|
@@ -318,6 +330,7 @@ ActiveRecord::Schema.define(version: 2021_10_15_034650) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "binders", "teams"
   add_foreign_key "events", "teams"
+  add_foreign_key "notes", "teams"
   add_foreign_key "setlists", "teams"
   add_foreign_key "songs", "teams"
   add_foreign_key "themes", "teams"
