@@ -17,8 +17,6 @@ class Song < ApplicationRecord
 
   belongs_to :team
 
-  after_update :update_note_line_numbers
-
   def remove_themes(theme_ids)
     themes.delete(Theme.where(id: theme_ids)) if theme_ids && !theme_ids.empty?
   end
@@ -34,17 +32,4 @@ class Song < ApplicationRecord
   def add_genres(genre_ids)
     genres.append(Genre.where(id: genre_ids)) if genre_ids && !genre_ids.empty?
   end
-
-  private
-
-  def update_note_line_numbers
-    if notes.present?
-      validate_line_numbers
-    end
-  end
-
-  def validate_line_numbers
-    line_count = content.lines
-  end
-
 end

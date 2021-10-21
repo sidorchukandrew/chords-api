@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_19_021228) do
+ActiveRecord::Schema.define(version: 2021_10_21_045835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2021_10_19_021228) do
   end
 
   create_table "formats", force: :cascade do |t|
-    t.string "font", default: "Open Sans"
+    t.string "font", default: "Roboto Mono"
     t.integer "font_size", default: 18
     t.boolean "bold_chords", default: false
     t.boolean "italic_chords", default: false

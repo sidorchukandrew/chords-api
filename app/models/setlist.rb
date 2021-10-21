@@ -52,6 +52,7 @@ class Setlist < ApplicationRecord
                 format = Format.for_song_and_user(song, current_user).first
                 format = Format.for_song(song).first unless format.present?
                 format = default_format if !format.present?
+                notes = song.notes
                 song_with_position = {
                     id: song.id,
                     name: song.name,
@@ -59,7 +60,8 @@ class Setlist < ApplicationRecord
                     transposed_key: song.transposed_key,
                     position: schedule_data.position,
                     content: song.content,
-                    format: format.as_json
+                    format: format.as_json,
+                    notes: notes
                 }
             end
         else
@@ -68,6 +70,7 @@ class Setlist < ApplicationRecord
                 format = Format.for_song_and_user(song, current_user).first
                 format = Format.for_song(song).first unless format.present?
                 format = default_format if !format.present?
+                notes = song.notes
                 song_with_position = {
                     id: song.id,
                     name: song.name,
@@ -75,7 +78,8 @@ class Setlist < ApplicationRecord
                     transposed_key: song.transposed_key,
                     position: schedule_data.position,
                     content: song.content,
-                    format: format.as_json
+                    format: format.as_json,
+                    notes: notes
                 }
             end
         end
@@ -84,7 +88,7 @@ class Setlist < ApplicationRecord
     private
      def default_format
       format = {
-        font: "Courier New",
+        font: 'Roboto Mono',
         font_size: 18,
         bold_chords: false,
         italic_chords: false
