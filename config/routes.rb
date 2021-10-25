@@ -145,4 +145,7 @@ Rails.application.routes.draw do
 
   # dashboard
   get '/dashboard', to: "dashboard#show"
+
+  # contact submissions
+  post '/contact_submissions', to: 'contact_submissions#create'
 end

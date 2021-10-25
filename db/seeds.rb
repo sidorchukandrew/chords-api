@@ -146,6 +146,8 @@ admins.each { |admin| admin.permissions.replace(all_permissions) }
 members = Role.where(is_member: true)
 all_view_permissions = Permission.where(name: ['View songs', 'View binders', 'View sets', 'View events'])
 
+members.each { |member| member.permissions.replace(all_view_permissions) }
+
 users = User.all
 
 users.each do |u|
