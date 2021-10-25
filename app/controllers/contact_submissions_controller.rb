@@ -1,7 +1,7 @@
 class ContactSubmissionsController < ApplicationController
   
   def create
-    ContactSubmissionsMailer.with(submission_params).contact_submitted.deliver_later
+    ContactSubmissionsMailer.with(submission: submission_params).contact_submitted.deliver_later
   end
 
   private
