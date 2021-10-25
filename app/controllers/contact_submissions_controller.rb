@@ -1,11 +1,17 @@
 class ContactSubmissionsController < ApplicationController
   
   def create
-    ContactSubmissionsMailer.with(submission: submission_params).contact_submitted.deliver_later
+    ContactSubmissionsMailer.with(submission).contact_submitted.deliver_later
   end
 
   private
-  def submission_params
-    params.permit(:first_name, :last_name, :email, :message)
+
+  def submission
+    {
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email: params[:email],
+      message: params[:message]
+    }
   end
 end
