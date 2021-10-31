@@ -13,7 +13,7 @@ class OnsongController < ApplicationController
 
     puts "Import id: #{@import.id}"
 
-    render json: {files: @files, id: @import.id}
+    render json: { files: @files, id: @import.id }
   end
 
   def import

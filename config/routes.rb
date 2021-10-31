@@ -148,4 +148,7 @@ Rails.application.routes.draw do
 
   # contact submissions
   post '/contact_submissions', to: 'contact_submissions#create'
+
+  # imports
+  post '/imports', to: 'imports#import' 
 end
