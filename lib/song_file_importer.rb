@@ -2,12 +2,13 @@ require 'docx'
 require 'ruby-rtf'
 
 class SongFileImporter
-  attr_accessor :files, :errors, :team_id
+  attr_accessor :files, :errors, :team_id, :attach_files
 
-  def initialize(files = [], team_id)
+  def initialize(files, team_id, attach_files = false)
     @files = files
     @team_id = team_id
     @errors = []
+    @attach_files = attach_files
   end
 
   def convert_files
@@ -38,6 +39,8 @@ class SongFileImporter
       s.source = 'File'
       s.team_id = @team_id
     end
+
+    song.files.attach(file) if attach_files
 
     begin
       @errors << "#{file_name}: #{song.errors&.full_messages&.join(', ')}" unless song.save

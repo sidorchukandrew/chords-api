@@ -37,6 +37,12 @@ Rails.application.routes.draw do
 
     # notes
     resources :notes
+
+    # files
+    post '/files', to: 'files#attach_to_song'
+    get '/files', to: 'files#index_song_files'
+    delete '/files/:id', to: 'files#delete_song_file'
+    put '/files/:id', to: 'files#update_song_file'
   end
 
 

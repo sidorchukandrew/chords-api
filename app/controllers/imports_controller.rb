@@ -2,7 +2,7 @@ class ImportsController < ApplicationController
   before_action :authenticate_user!, :authenticate_team, :can_add_songs?
 
   def import
-    importer = SongFileImporter.new(params[:files], params[:team_id])
+    importer = SongFileImporter.new(params[:files], params[:team_id], @current_subscription.files_enabled?)
     importer.convert_files
 
     render json: importer.errors, status: :unprocessable_entity if importer.errors?

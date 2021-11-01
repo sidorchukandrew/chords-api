@@ -16,6 +16,8 @@ class Song < ApplicationRecord
 
   has_many :notes, dependent: :destroy
 
+  has_many_attached :files, dependent: :destroy
+
   belongs_to :team
 
   def remove_themes(theme_ids)

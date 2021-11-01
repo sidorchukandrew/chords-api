@@ -139,12 +139,28 @@ Permission.find_or_create_by!(name: "Edit events") do |permission|
     permission.description = "Allow user to edit events, such as modifying notifications and members"
 end
 
+Permission.find_or_create_by!(name: "View files") do |permission|
+    permission.description = "Allow user to view and download files attached to a song"
+end
+
+Permission.find_or_create_by!(name: "Add files") do |permission|
+    permission.description = "Allow user to attach files to a song"
+end
+
+Permission.find_or_create_by!(name: "Delete files") do |permission|
+    permission.description = "Allow user to delete and unattach files from a song"
+end
+
+Permission.find_or_create_by!(name: "Edit files") do |permission|
+    permission.description = "Allow user to edit file names attached to a song"
+end
+
 admins = Role.where(is_admin: true)
 all_permissions = Permission.all
 admins.each { |admin| admin.permissions.replace(all_permissions) }
 
 members = Role.where(is_member: true)
-all_view_permissions = Permission.where(name: ['View songs', 'View binders', 'View sets', 'View events'])
+all_view_permissions = Permission.where(name: ['View songs', 'View binders', 'View sets', 'View events', 'View files'])
 
 members.each { |member| member.permissions.replace(all_view_permissions) }
 

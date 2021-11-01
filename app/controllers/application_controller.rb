@@ -35,6 +35,11 @@ class ApplicationController < ActionController::API
   EDIT_EVENTS = 'Edit events'.freeze
   DELETE_EVENTS = 'Delete events'.freeze
 
+  VIEW_FILES = 'View files'.freeze
+  ADD_FILES = 'Add files'.freeze
+  EDIT_FILES = 'Edit files'.freeze
+  DELETE_FILES = 'Delete files'.freeze
+
   private
 
   def authenticate_team
