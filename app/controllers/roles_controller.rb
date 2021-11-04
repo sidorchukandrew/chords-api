@@ -13,7 +13,9 @@ class RolesController < ApplicationController
   end
 
   def show
-    render json: @role, include: { permissions: {}, memberships: { include: [:user] } }
+    render json: @role, include: { permissions: {}, memberships: { include: {
+      user: { except: [:pco_access_token, :pco_refresh_token, :pco_token_expires_at, :allow_password_change] }
+    } } }
   end
 
   def update
@@ -40,7 +42,9 @@ class RolesController < ApplicationController
     Membership.where(id: params[:membership_ids]).update_all(role_id: @role.id)
 
     @memberships = Membership.where(id: params[:membership_ids]).includes(:role, :user)
-    render json: @memberships, include: [:role, :user]
+    render json: @memberships, include: [:role, 
+      { user: { except: [:pco_access_token, :pco_refresh_token, :pco_token_expires_at, :allow_password_change] } }
+    ]
   end
 
   def create

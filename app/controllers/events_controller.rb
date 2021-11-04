@@ -7,7 +7,9 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.includes(:memberships).where(team_id: params[:team_id])
-    render json: @events, include: { memberships: { include: :user } }
+    render json: @events, include: { memberships: { include: { 
+      user: { except: [:pco_access_token, :pco_refresh_token, :pco_token_expires_at, :allow_password_change] }
+    } } }
   end
 
   def show
@@ -19,7 +21,9 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     if @event.save
-      render json: @event, include: { memberships: { include: :user } }
+      render json: @event, include: { memberships: { include: 
+        { user: { except: [:pco_access_token, :pco_refresh_token, :pco_token_expires_at, :allow_password_change] } } 
+      } }
     else
       render json: @event.errors.full_messages
     end
