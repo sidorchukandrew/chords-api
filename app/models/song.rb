@@ -1,5 +1,6 @@
 class Song < ApplicationRecord
- 
+  include MusicUtils
+
   has_and_belongs_to_many :binders
 
   has_and_belongs_to_many :genres
@@ -20,6 +21,8 @@ class Song < ApplicationRecord
 
   belongs_to :team
 
+  before_save :add_key_if_not_present
+
   def remove_themes(theme_ids)
     themes.delete(Theme.where(id: theme_ids)) if theme_ids && !theme_ids.empty?
   end
@@ -34,5 +37,11 @@ class Song < ApplicationRecord
 
   def add_genres(genre_ids)
     genres.append(Genre.where(id: genre_ids)) if genre_ids && !genre_ids.empty?
+  end
+
+  private
+
+  def add_key_if_not_present
+    self.original_key = detect_key(content) if content && !original_key
   end
 end

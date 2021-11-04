@@ -30,16 +30,16 @@ class Team < ApplicationRecord
     memberships = self.memberships
 
     memberships.collect do |membership|
-        user = membership.user
-        {
-          id: user.id,
-          email: user.email,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          image_url: user.profile_picture&.variant(resize_to_limit: [200, 200])&.processed&.url,
-          position: membership.position,
-          joined_team_at: membership.created_at
-        }
+      user = membership.user
+      {
+        id: user.id,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        image_url: user.profile_picture&.variant(resize_to_limit: [200, 200])&.processed&.url,
+        position: membership.position,
+        joined_team_at: membership.created_at
+      }
     end
   end
 
@@ -85,7 +85,7 @@ class Team < ApplicationRecord
       role.name = 'Member'
       role.description = 'Members in this role have read only access to songs, binders and sets. Members receive this role by default when they join a team.'
       role.is_member = true
-      role.permissions = Permission.where(name: ['View songs', 'View sets', 'View binders'])
+      role.permissions = Permission.where(name: ['View songs', 'View sets', 'View binders', 'View files'])
     end
   end
 end
