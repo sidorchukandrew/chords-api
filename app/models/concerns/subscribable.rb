@@ -18,9 +18,11 @@ module Subscribable
   end
 
   def cancel_subscription
-    stripe_subscription_id = subscription.stripe_subscription_id
-    Stripe::Subscription.delete(stripe_subscription_id)
-    puts 'Cancelling subscription in Stripe'
+    if subscription
+      stripe_subscription_id = subscription.stripe_subscription_id
+      Stripe::Subscription.delete(stripe_subscription_id)
+      puts 'Cancelling subscription in Stripe'
+    end
   end
 
   private
