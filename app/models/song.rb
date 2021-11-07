@@ -23,6 +23,8 @@ class Song < ApplicationRecord
 
   before_save :add_key_if_not_present
 
+  scope :without_content, -> { select(Song.column_names - ['content']) }
+
   def remove_themes(theme_ids)
     themes.delete(Theme.where(id: theme_ids)) if theme_ids && !theme_ids.empty?
   end

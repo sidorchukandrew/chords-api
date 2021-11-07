@@ -3,7 +3,7 @@ class InvitationMailer < ApplicationMailer
     def invite_member
         @invitation = params[:invitation]
         @sender = params[:sender]
-        @sender_full_name = "Someone"
+        @sender_full_name = @sender.email
 
         if @sender.first_name
             @sender_full_name = "#{@sender.first_name} #{@sender.last_name}"

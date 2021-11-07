@@ -11,7 +11,7 @@ class SongsController < ApplicationController
 
   # GET /songs
   def index
-    @songs = Song.includes(:binders).where(team_id: params[:team_id])
+    @songs = Song.includes(:binders).without_content.where(team_id: params[:team_id]).order(:name)
     @songs = @songs.where('name ILIKE ?', "%#{params[:name]}%") if name_passed?
 
     render json: @songs, include: :binders
