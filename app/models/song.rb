@@ -21,6 +21,8 @@ class Song < ApplicationRecord
 
   belongs_to :team
 
+  has_many :capos, dependent: :destroy
+
   before_save :add_key_if_not_present
 
   scope :without_content, -> { select(Song.column_names - ['content']) }

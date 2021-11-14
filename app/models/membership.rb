@@ -3,6 +3,7 @@ class Membership < ApplicationRecord
   belongs_to :user
   belongs_to :role
   has_and_belongs_to_many :events
+  has_many :capos, dependent: :destroy
 
   def to_hash
     membership = as_json

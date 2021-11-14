@@ -43,6 +43,11 @@ Rails.application.routes.draw do
     get '/files', to: 'files#index_song_files'
     delete '/files/:id', to: 'files#delete_song_file'
     put '/files/:id', to: 'files#update_song_file'
+
+    # capos
+    post '/capos', to: 'capos#create'
+    delete '/capos/:id', to: 'capos#destroy'
+    put '/capos/:id', to: 'capos#update'
   end
 
 
