@@ -16,7 +16,7 @@ class SetlistsController < ApplicationController
 
   # GET /setlists/1
   def show
-    songs_with_positions = @setlist.songs_with_positions(@current_user)
+    songs_with_positions = @setlist.songs_with_positions(@current_user, @current_member)
     @setlist = @setlist.as_json
     @setlist['songs'] = songs_with_positions
     render json: @setlist
@@ -49,7 +49,7 @@ class SetlistsController < ApplicationController
 
   # POST /setlists/1/songs
   def add_songs
-    added_songs = @setlist.add_songs(params[:song_ids], @current_user)
+    added_songs = @setlist.add_songs(params[:song_ids], @current_user, @current_member)
 
     render json: added_songs
   end

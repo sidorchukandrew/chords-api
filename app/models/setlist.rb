@@ -17,7 +17,7 @@ class Setlist < ApplicationRecord
         end
     end
 
-    def add_songs(song_ids, current_user)
+    def add_songs(song_ids, current_user, current_member)
         last_position = self.scheduled_songs.count
         if song_ids && song_ids.length > 0
             song_ids.each do |song_id|
@@ -25,7 +25,7 @@ class Setlist < ApplicationRecord
                 last_position += 1
             end
 
-            songs_with_positions(song_ids, current_user)
+            songs_with_positions(song_ids, current_user, current_member)
         end
     end
 
@@ -45,7 +45,7 @@ class Setlist < ApplicationRecord
         @scheduled_song.save
     end
 
-    def songs_with_positions(song_ids = nil, current_user)
+    def songs_with_positions(song_ids = nil, current_user, current_member)
         if song_ids
             @songs_with_positions = self.scheduled_songs.where(song_id: song_ids).order("position").collect do |schedule_data|
                 song = schedule_data.song
@@ -53,6 +53,7 @@ class Setlist < ApplicationRecord
                 format = Format.for_song(song).first unless format.present?
                 format = default_format if !format.present?
                 notes = song.notes
+                capo = song.capos.find_by(membership: current_member)&.as_json
                 song_with_position = {
                     id: song.id,
                     name: song.name,
@@ -61,7 +62,8 @@ class Setlist < ApplicationRecord
                     position: schedule_data.position,
                     content: song.content,
                     format: format.as_json,
-                    notes: notes
+                    notes: notes,
+                    capo: capo
                 }
             end
         else
@@ -71,6 +73,7 @@ class Setlist < ApplicationRecord
                 format = Format.for_song(song).first unless format.present?
                 format = default_format if !format.present?
                 notes = song.notes
+                capo = song.capos.find_by(membership: current_member)&.as_json
                 song_with_position = {
                     id: song.id,
                     name: song.name,
@@ -79,7 +82,8 @@ class Setlist < ApplicationRecord
                     position: schedule_data.position,
                     content: song.content,
                     format: format.as_json,
-                    notes: notes
+                    notes: notes,
+                    capo: capo
                 }
             end
         end
