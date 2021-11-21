@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_13_230022) do
+ActiveRecord::Schema.define(version: 2021_11_21_034234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(version: 2021_11_13_230022) do
     t.bigint "team_id"
     t.string "source"
     t.string "transposed_key"
+    t.integer "scroll_speed", default: 1
     t.index ["name"], name: "index_songs_on_name"
     t.index ["team_id"], name: "index_songs_on_team_id"
   end
