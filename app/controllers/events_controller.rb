@@ -3,7 +3,8 @@ class EventsController < ApplicationController
   before_action :can_view_events, only: %i[index show]
   before_action :can_add_events, only: [:create]
   before_action :can_delete_events, only: [:destroy]
-  before_action :set_event, only: %i[show destroy]
+  before_action :can_edit_events, only: [:update]
+  before_action :set_event, only: %i[show destroy update]
 
   def index
     @events = Event.includes(:memberships).where(team_id: params[:team_id])
@@ -26,6 +27,16 @@ class EventsController < ApplicationController
       } }
     else
       render json: @event.errors.full_messages
+    end
+  end
+
+  def update
+    if @event.update(event_params)
+      render json: @event,  include: { memberships: { include: 
+        { user: { except: [:pco_access_token, :pco_refresh_token, :pco_token_expires_at, :allow_password_change] } } 
+      } }
+    else
+      render json: @event.errors&.full_messages, status: :unprocessable_entity
     end
   end
 

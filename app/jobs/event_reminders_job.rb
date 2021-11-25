@@ -1,10 +1,11 @@
 class EventRemindersJob < ApplicationJob
   queue_as :default
 
-  def perform(event_id)
-    puts "Here's the id: #{event_id}"
+  def perform(event_reminder_id)
+    puts "Here's the id: #{event_reminder_id}"
     begin
-      @event = Event.includes(:memberships).find(event_id)
+      @event_reminder = EventReminder.find(event_reminder_id)
+      @event = Event.includes(:memberships).find(@event_reminder.event_id)
       @members = @event.memberships.includes(:user)
 
       @members.each do |member|
