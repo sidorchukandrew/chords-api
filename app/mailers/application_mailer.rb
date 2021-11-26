@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'support@cadencechords.com'
+  default from: 'Cadence <support@cadencechords.com>'
   layout 'mailer'
 end
