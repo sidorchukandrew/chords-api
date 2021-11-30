@@ -63,7 +63,8 @@ class Setlist < ApplicationRecord
                     content: song.content,
                     format: format.as_json,
                     notes: notes,
-                    capo: capo
+                    capo: capo,
+                    roadmap: song.roadmap&.split('@')
                 }
             end
         else
@@ -83,7 +84,8 @@ class Setlist < ApplicationRecord
                     content: song.content,
                     format: format.as_json,
                     notes: notes,
-                    capo: capo
+                    capo: capo,
+                    roadmap: song.roadmap&.split('@')
                 }
             end
         end

@@ -31,7 +31,7 @@ class SongsController < ApplicationController
     song['genres'] = @song.genres.as_json
     song['capo'] = @song.capos.find_by(membership: @current_member)&.as_json
     song['notes'] = @song.notes.as_json if @current_subscription.notes_enabled?
-
+    song['roadmap'] = @song.roadmap&.split('@')
     render json: song
   end
 
@@ -94,7 +94,7 @@ class SongsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def song_params
-    params.permit(%i[name team_id bpm artist meter original_key content transposed_key scroll_speed])
+    params.permit(%i[name team_id bpm artist meter original_key content transposed_key scroll_speed roadmap])
   end
 
   def default_format
