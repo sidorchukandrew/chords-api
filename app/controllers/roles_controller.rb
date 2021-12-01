@@ -4,7 +4,8 @@ class RolesController < ApplicationController
   before_action :can_edit_roles, only: [:add_permission, :remove_permission, :update]
   before_action :can_assign_roles, only: [:assign_role_bulk]
   before_action :can_add_roles, only: [:create]
-  before_action :set_role, only: [:show, :add_permission, :remove_permission, :update, :assign_role_bulk]
+  before_action :can_delete_roles, only: [:destroy]
+  before_action :set_role, only: [:show, :add_permission, :remove_permission, :update, :assign_role_bulk, :destroy]
 
   def index
     @roles = Role.where(team_id: params[:team_id]).includes(:permissions, :memberships)
@@ -57,6 +58,10 @@ class RolesController < ApplicationController
     end
   end
 
+  def destroy
+    @role.destroy
+  end
+
   private
 
   def role_params
@@ -81,6 +86,10 @@ class RolesController < ApplicationController
 
   def can_add_roles
     return_forbidden unless @current_member.can? ADD_ROLES
+  end
+
+  def can_delete_roles
+    return_forbidden unless @current_member.can? DELETE_ROLES
   end
 
 end

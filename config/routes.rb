@@ -127,6 +127,7 @@ Rails.application.routes.draw do
 
   delete '/roles/:id/permissions', to: 'roles#remove_permission'
   post '/roles/:id/permissions', to: 'roles#add_permission'
+  delete '/roles/:id', to: 'roles#destroy'
 
   # permissions
   resources :permissions, only: %i[show index]
