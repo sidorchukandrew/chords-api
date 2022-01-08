@@ -86,9 +86,9 @@ class SongsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_song
     @song = if params[:id]
-              Song.where(team_id: params[:team_id], id: params[:id]).first
+              Song.find_by!(team_id: params[:team_id], id: params[:id])
             else
-              Song.where(team_id: params[:team_id], id: params[:song_id]).first
+              Song.find_by!(team_id: params[:team_id], id: params[:song_id])
             end
   end
 
