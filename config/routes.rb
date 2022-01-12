@@ -163,4 +163,9 @@ Rails.application.routes.draw do
 
   # imports
   post '/imports', to: 'imports#import' 
+
+  # mobile cache
+  scope '/cache' do
+    get 'songs', to: 'cache#index_songs'
+  end
 end

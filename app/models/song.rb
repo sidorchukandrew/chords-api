@@ -27,6 +27,8 @@ class Song < ApplicationRecord
 
   scope :without_content, -> { select(Song.column_names - ['content']) }
 
+  attr_accessor :capo, :format
+
   def remove_themes(theme_ids)
     themes.delete(Theme.where(id: theme_ids)) if theme_ids && !theme_ids.empty?
   end
