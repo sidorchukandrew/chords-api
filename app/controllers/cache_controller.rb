@@ -17,10 +17,10 @@ class CacheController < ApplicationController
     render json: @songs, include: [:binders, :themes, :genres, :notes], methods: [:capo, :format]
   end
 
-  def index_binders
-  end
-
   def index_setlists
+    @setlists = Setlist.includes(:scheduled_songs)
+    
+    render json: @setlists, include: :scheduled_songs
   end
 
 
@@ -34,4 +34,5 @@ class CacheController < ApplicationController
       italic_chords: false
     }
   end
+  
 end
