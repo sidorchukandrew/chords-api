@@ -167,5 +167,6 @@ Rails.application.routes.draw do
   # mobile cache
   scope '/cache' do
     get 'songs', to: 'cache#index_songs'
+    get '/setlists', to: 'cache#index_setlists'
   end
 end
