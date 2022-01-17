@@ -18,7 +18,7 @@ class CacheController < ApplicationController
   end
 
   def index_setlists
-    @setlists = Setlist.includes(:scheduled_songs)
+    @setlists = Setlist.includes(:scheduled_songs).where(team_id: params[:team_id])
     
     render json: @setlists, include: :scheduled_songs
   end
