@@ -58,9 +58,16 @@ class StripeWebhooksController < ApplicationController
     when 'customer.subscription.deleted'
       begin
         @team = Team.find(event.data.object.metadata.team_id)
+
+        puts 'Checking if subscription in cancel request matches current subscription on team'
+        puts "Cancel subscription: #{event.data.object.id}, Team subscription: #{@team.subscription.stripe_subscription_id}"
+        return unless @team.subscription.stripe_subscription_id == event.data.object.id
+
         @billing_user = @team.subscription.user
 
         @team.subscription.destroy
+
+        puts 'Creating new starter subscription because previous subscription was destroyed'
         @team.subscribe(@billing_user, 'Starter')
 
         # TODO: NOTIFY CUSTOMER THAT THEY WERE SUCCESSFULLY DOWNGRADED
@@ -69,7 +76,7 @@ class StripeWebhooksController < ApplicationController
         @team.songs.each do |s|
           s.files.purge_later
         end
-        @teams.notes.destroy_all
+        @team.notes.destroy_all
 
       rescue ActiveRecord::RecordNotFound
         return
