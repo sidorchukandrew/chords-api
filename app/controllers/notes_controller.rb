@@ -47,7 +47,7 @@ class NotesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def note_params
-    params.permit(:color, :line_number, :content, :team_id, :song_id)
+    params.permit(:color, :line_number, :content, :team_id, :song_id, :x, :y)
   end
 
   def validate_subscription
