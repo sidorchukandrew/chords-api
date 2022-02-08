@@ -17,7 +17,7 @@ class Role < ApplicationRecord
     permission = Permission.find_by(name: name)
 
     permissions.delete(permission)
-    self
+    self 
   end
 
   private
