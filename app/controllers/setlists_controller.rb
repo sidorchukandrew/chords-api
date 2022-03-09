@@ -69,7 +69,7 @@ class SetlistsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_setlist
     id_to_find_by = params[:setlist_id] || params[:id]
-    @setlist = Setlist.find(id_to_find_by)
+    @setlist = Setlist.find_by!(id: id_to_find_by, team_id: params[:team_id])
   end
 
   # Only allow a list of trusted parameters through.
