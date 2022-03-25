@@ -19,7 +19,7 @@ class SongsController < ApplicationController
 
   # GET /songs/1
   def show
-    @song = Song.includes(:themes, :genres, :binders, :notes, :capos).find(params[:id])
+    @song = Song.includes(:themes, :genres, :binders, :notes, :capos, :setlists).find(params[:id])
     @format = Format.for_song_and_user(@song, @current_user).first
 
     @format = Format.for_song(@song).first unless @format.present?
@@ -29,6 +29,7 @@ class SongsController < ApplicationController
     song['themes'] = @song.themes.as_json
     song['binders'] = @song.binders.as_json
     song['genres'] = @song.genres.as_json
+    song['setlists'] = @song.setlists.as_json
     song['capo'] = @song.capos.find_by(membership: @current_member)&.as_json
     song['notes'] = @song.notes.as_json if @current_subscription.notes_enabled?
     song['roadmap'] = @song.roadmap&.split('@')
