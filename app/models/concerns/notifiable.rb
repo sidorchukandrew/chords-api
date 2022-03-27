@@ -9,7 +9,7 @@ module Notifiable
     setup notification
     notify_by_email if @settings.email_enabled?
     notify_by_sms if @settings.sms_enabled?
-    notify_by_app if @settings.app_enabled?
+    notify_by_push if @settings.push_enabled?
   end
 
   private
@@ -40,6 +40,6 @@ module Notifiable
     })
   end
 
-  def notify_by_app
+  def notify_by_push
   end
 end
