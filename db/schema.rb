@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_30_214407) do
+ActiveRecord::Schema.define(version: 2022_03_27_050441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 2022_01_30_214407) do
   create_table "notification_settings", force: :cascade do |t|
     t.boolean "sms_enabled", default: false
     t.boolean "email_enabled", default: true
-    t.boolean "app_enabled", default: false
+    t.boolean "push_enabled", default: false
     t.string "notification_type"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false

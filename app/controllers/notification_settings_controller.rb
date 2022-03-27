@@ -23,6 +23,6 @@ class NotificationSettingsController < ApplicationController
   end
 
   def notification_setting_params
-    params.permit(:sms_enabled, :email_enabled, :app_enabled)
+    params.permit(:sms_enabled, :email_enabled, :push_enabled)
   end
 end
