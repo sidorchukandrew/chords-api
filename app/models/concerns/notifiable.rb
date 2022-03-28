@@ -41,5 +41,22 @@ module Notifiable
   end
 
   def notify_by_push
+    puts "Notifying by push"
+
+    client = OneSignal::DefaultApi.new
+    app_id = ENV['ONE_SIGNAL_APP_ID']
+
+    push_notification = OneSignal::Notification.new({
+      app_id: app_id,
+      include_external_user_ids: [self.uid],
+      contents: {"en": @notification[:body]},
+      subtitle: {"en": @notification[:title]} 
+    })
+
+    begin
+      client.create_notification(push_notification)
+    rescue StandardError => e
+      puts "Error when calling OneSignal->create_notification: #{e}"
+    end
   end
 end
