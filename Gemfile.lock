@@ -279,7 +279,7 @@ DEPENDENCIES
   dotenv-rails
   image_processing
   oauth2
-  onesignal
+  onesignal (~> 0.1.0)
   pco_api
   pdf-reader
   pg
