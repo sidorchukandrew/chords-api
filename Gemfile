@@ -40,8 +40,7 @@ gem 'docx'
 gem 'pdf-reader'
 gem 'ruby-rtf'
 
-
-gem 'onesignal', '~> 1.0.0.beta1'
+gem 'rest-client'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,3 +1,5 @@
+require 'rest-client'
+
 module Notifiable
   extend ActiveSupport::Concern
 
@@ -43,18 +45,20 @@ module Notifiable
   def notify_by_push
     puts "Notifying by push"
 
-    client = OneSignal::DefaultApi.new
-    app_id = ENV['ONE_SIGNAL_APP_ID']
-
-    push_notification = OneSignal::Notification.new({
-      app_id: app_id,
+    push_notification = {
+      app_id: ENV['ONE_SIGNAL_APP_ID'],
       include_external_user_ids: [self.uid],
       contents: {"en": @notification[:body]},
       subtitle: {"en": @notification[:title]} 
-    })
+    }
+
+    headers = {
+      "Content-Type" => "application/json",
+      "Authorization" => "Basic #{ENV['ONE_SIGNAL_REST_API_KEY']}"
+    }
 
     begin
-      client.create_notification(push_notification)
+      RestClient.post("#{ENV['ONE_SIGNAL_API_BASE_URL']}/notifications", push_notification, headers)
     rescue StandardError => e
       puts "Error when calling OneSignal->create_notification: #{e}"
     end
