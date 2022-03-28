@@ -1,4 +1,4 @@
-# require 'onesignal'
+require 'onesignal'
 
 # OneSignal.configure do |config|
 #   config.user_key = ENV['ONE_SIGNAL_AUTH_KEY']
