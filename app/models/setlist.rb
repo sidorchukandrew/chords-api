@@ -64,7 +64,8 @@ class Setlist < ApplicationRecord
                     format: format.as_json,
                     notes: notes,
                     capo: capo,
-                    roadmap: song.roadmap&.split('@')
+                    roadmap: song.roadmap&.split('@'),
+                    scroll_speed: song.scroll_speed
                 }
             end
         else
@@ -85,7 +86,8 @@ class Setlist < ApplicationRecord
                     format: format.as_json,
                     notes: notes,
                     capo: capo,
-                    roadmap: song.roadmap&.split('@')
+                    roadmap: song.roadmap&.split('@'),
+                    scroll_speed: song.scroll_speed
                 }
             end
         end
