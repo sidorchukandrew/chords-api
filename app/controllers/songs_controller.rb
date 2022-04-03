@@ -33,7 +33,7 @@ class SongsController < ApplicationController
     song['capo'] = @song.capos.find_by(membership: @current_member)&.as_json
     song['notes'] = @song.notes.as_json if @current_subscription.notes_enabled?
     song['roadmap'] = @song.roadmap&.split('@')
-    song['tracks'] = @song.tracks
+    song['tracks'] = @song.tracks if @current_subscription.tracks_enabled?
     render json: song
   end
 

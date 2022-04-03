@@ -14,6 +14,10 @@ class Subscription < ApplicationRecord
     pro_plan?
   end
 
+  def tracks_enabled?
+    pro_plan?
+  end
+
   def pro_plan?
     stripe_price_id == ENV['PRO_PLAN_PRICE_ID']
   end

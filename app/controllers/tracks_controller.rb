@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-    before_action :authenticate_user!, :authenticate_team
+    before_action :authenticate_user!, :authenticate_team, :validate_subscription
     before_action :can_edit_songs, only: [:destroy, :create_bulk]
     before_action :set_song, only: [:create_bulk]
     before_action :set_track, only: [:destroy]
@@ -40,5 +40,9 @@ class TracksController < ApplicationController
 
     def can_edit_songs
         return_forbidden unless @current_member.can? EDIT_SONGS
+    end
+
+    def validate_subscription
+        return_forbidden unless @current_subscription.tracks_enabled?
     end
 end

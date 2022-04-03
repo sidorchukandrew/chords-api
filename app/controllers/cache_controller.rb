@@ -14,7 +14,7 @@ class CacheController < ApplicationController
       song.format = format_configuration&.format || default_format 
     end
 
-    render json: @songs, include: [:binders, :themes, :genres, :notes, :tracks], methods: [:capo, :format]
+    render json: @songs, include: [:binders, :themes, :genres, :notes, (:tracks if @current_subscription.pro_plan?)].reject { |x| x.nil? }, methods: [:capo, :format]
   end
 
   def index_setlists
