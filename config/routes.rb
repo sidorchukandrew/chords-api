@@ -48,6 +48,11 @@ Rails.application.routes.draw do
     post '/capos', to: 'capos#create'
     delete '/capos/:id', to: 'capos#destroy'
     put '/capos/:id', to: 'capos#update'
+
+    # tracks
+    get '/tracks', to: 'tracks#index'
+    post '/tracks', to: 'tracks#create_bulk'
+    delete '/tracks/:id', to: 'tracks#destroy'
   end
 
 
@@ -168,5 +173,17 @@ Rails.application.routes.draw do
   scope '/cache' do
     get 'songs', to: 'cache#index_songs'
     get '/setlists', to: 'cache#index_setlists'
+  end
+
+  scope '/apple_music' do
+    get '/search', to: 'apple_music#search'
+  end
+
+  scope '/spotify' do
+    get '/search', to: 'spotify#search'
+  end
+
+  scope '/youtube' do
+    get '/search', to: 'youtube#search'
   end
 end

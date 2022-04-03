@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_27_050441) do
+ActiveRecord::Schema.define(version: 2022_03_31_041353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -314,6 +314,20 @@ ActiveRecord::Schema.define(version: 2022_03_27_050441) do
     t.bigint "team_id"
     t.index ["name"], name: "index_themes_on_name"
     t.index ["team_id"], name: "index_themes_on_team_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.bigint "song_id"
+    t.bigint "team_id"
+    t.string "url", default: ""
+    t.string "artwork_url", default: ""
+    t.string "external_id"
+    t.string "source"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.index ["song_id"], name: "index_tracks_on_song_id"
+    t.index ["team_id"], name: "index_tracks_on_team_id"
   end
 
   create_table "users", force: :cascade do |t|

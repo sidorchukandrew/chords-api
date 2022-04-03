@@ -65,7 +65,7 @@ class Setlist < ApplicationRecord
                     notes: notes,
                     capo: capo,
                     roadmap: song.roadmap&.split('@'),
-                    scroll_speed: song.scroll_speed
+                    scroll_speed: song.scroll_speed,
                 }
             end
         else

@@ -2,7 +2,7 @@ class CacheController < ApplicationController
   before_action :authenticate_user!, :authenticate_team
   
   def index_songs
-    @songs = Song.includes(:binders, :themes, :genres, :notes, :capos, format_configurations: [:format])
+    @songs = Song.includes(:binders, :themes, :genres, :notes, :capos, :tracks, format_configurations: [:format])
                  .where(team_id: params[:team_id])
 
     @songs.each do |song|
@@ -14,7 +14,7 @@ class CacheController < ApplicationController
       song.format = format_configuration&.format || default_format 
     end
 
-    render json: @songs, include: [:binders, :themes, :genres, :notes], methods: [:capo, :format]
+    render json: @songs, include: [:binders, :themes, :genres, :notes, :tracks], methods: [:capo, :format]
   end
 
   def index_setlists

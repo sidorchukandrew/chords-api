@@ -14,6 +14,7 @@ class Team < ApplicationRecord
   has_one :subscription, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :notes, dependent: :destroy
+  has_many :tracks, dependent: :destroy
 
   before_destroy :cancel_subscription
 
