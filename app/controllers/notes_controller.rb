@@ -56,7 +56,7 @@ class NotesController < ApplicationController
   end
 
   def notify_via_telegram
-    if params[:team_id] == 5
+    if params[:team_id] == 5 || params[:team_id] == '5'
       puts "Ben's team!"
       Telegram.send_message("Updated")
     end
