@@ -28,6 +28,7 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1
   def update
     if @note.update(note_params)
+      notify_via_telegram
       render json: @note
     else
       render json: @note.errors, status: :unprocessable_entity
@@ -52,5 +53,11 @@ class NotesController < ApplicationController
 
   def validate_subscription
     return_forbidden unless @current_subscription.notes_enabled?
+  end
+
+  def notify_via_telegram
+    if params[:team_id] == 5
+      Telegram.send_message("Updated")
+    end
   end
 end
