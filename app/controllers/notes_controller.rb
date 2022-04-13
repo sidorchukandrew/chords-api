@@ -65,8 +65,7 @@ class NotesController < ApplicationController
         "     color: #{@note.color},\n" +
         "     song:  #{@note.song.name},\n" +
         "     x: #{@note.x},\n" +
-        "     y: #{@note.y},\n" +
-        "     content: #{@note.content}\n"
+        "     y: #{@note.y}\n"
         "}"
       Telegram.send_message(message)
     end
