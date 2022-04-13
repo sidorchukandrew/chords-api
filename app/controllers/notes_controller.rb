@@ -58,14 +58,15 @@ class NotesController < ApplicationController
   def notify_via_telegram
     if params[:team_id] == 5 || params[:team_id] == '5'
       message = 
-        "*Member*: #{@current_member.user.email}\n" +
+        "* Member * : #{@current_member.user.email}\n" +
         " - - - - - - - - - - - - \n" +
-        "*Note*: {\n" +
+        "* Note * : {\n" +
         "     id: #{@note.id},\n" +
         "     color: #{@note.color},\n" +
         "     song:  #{@note.song.name},\n" +
         "     x: #{@note.x},\n" +
-        "     y: #{@note.y}\n"
+        "     y: #{@note.y},\n" +
+        "     content: #{@note.content}\n"
         "}"
       Telegram.send_message(message)
     end

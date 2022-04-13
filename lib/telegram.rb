@@ -7,8 +7,7 @@ module Telegram
         def send_message(message)
             params = {
                 chat_id: ENV['TELEGRAM_CHAT_ID'],
-                text: message,
-                parse_mode: "MarkdownV2"
+                text: message
             }
 
             begin
