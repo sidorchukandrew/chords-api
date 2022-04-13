@@ -15,7 +15,7 @@ module Telegram
                 response = RestClient.get("#{API_URI}/sendMessage", {params: params})
                 HashWithIndifferentAccess.new(JSON.parse(response.body))
             rescue RestClient::ExceptionWithResponse => e
-                e.response
+                puts e.response
             end
         end
     end
