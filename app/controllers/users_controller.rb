@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_team, only: [:update_membership, :remove_membership, :show_membership]
+  before_action :authenticate_team, only: [:update_membership, :remove_membership, :show_membership, :leave_team]
   before_action :can_remove_members, only: [:remove_membership]
   before_action :set_user, only: %i[make_admin remove_admin update_membership remove_membership]
 
@@ -21,6 +21,10 @@ class UsersController < ApplicationController
 
   def remove_membership
     @user.leave_team(params[:team_id])
+  end
+
+  def leave_team
+    @current_user.leave_team(params[:team_id])
   end
 
   def show_membership

@@ -80,6 +80,7 @@ Rails.application.routes.draw do
 
   get '/users/me', to: 'users#me'
   put '/users/me', to: 'users#update_me'
+  delete '/users/me/teams/:team_id', to: 'users#leave_team'
   get '/users/me/memberships', to: 'users#membership'
   get '/users/:id/memberships/:team_id', to: 'users#show_membership'
   put '/users/:id/memberships/:team_id', to: 'users#update_membership'
