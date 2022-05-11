@@ -19,7 +19,7 @@ class SongsController < ApplicationController
 
   # GET /songs/1
   def show
-    @song = Song.includes(:themes, :genres, :binders, :notes, :capos, :setlists, :tracks).find_by(id: params[:id], team_id: params[:team_id])
+    @song = Song.includes(:themes, :genres, :binders, :notes, :capos, :setlists, :tracks).find_by!(id: params[:id], team_id: params[:team_id])
     @format = Format.for_song_and_user(@song, @current_user).first
 
     @format = Format.for_song(@song).first unless @format.present?
