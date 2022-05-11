@@ -1,6 +1,7 @@
 class Setlist < ApplicationRecord
     has_many :scheduled_songs, :dependent => :destroy
     has_many :songs, through: :scheduled_songs
+    has_many :sessions, dependent: :destroy
     belongs_to :team
     has_many :public_setlists, :dependent => :destroy
 

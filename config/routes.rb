@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     post '/songs', to: 'setlists#add_songs'
     delete '/songs', to: 'setlists#remove_songs'
     put '/songs/:song_id', to: 'setlists#update_scheduled_song'
+
+    # sessions
+    post '/sessions', to: 'sessions#create'
+    get '/sessions', to: 'sessions#index'
   end
 
   # invitations

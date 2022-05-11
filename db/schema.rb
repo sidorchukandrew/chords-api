@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_31_041353) do
+ActiveRecord::Schema.define(version: 2022_05_10_012953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,6 +247,18 @@ ActiveRecord::Schema.define(version: 2022_03_31_041353) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["setlist_id"], name: "index_scheduled_songs_on_setlist_id"
     t.index ["song_id"], name: "index_scheduled_songs_on_song_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "status"
+    t.bigint "team_id"
+    t.bigint "user_id"
+    t.bigint "setlist_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["setlist_id"], name: "index_sessions_on_setlist_id"
+    t.index ["team_id"], name: "index_sessions_on_team_id"
+    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "setlists", force: :cascade do |t|

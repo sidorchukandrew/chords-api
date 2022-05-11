@@ -15,7 +15,7 @@ class Team < ApplicationRecord
   has_many :events, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :tracks, dependent: :destroy
-
+  has_many :sessions, dependent: :destroy
   before_destroy :cancel_subscription
 
   def make_admin(user)
