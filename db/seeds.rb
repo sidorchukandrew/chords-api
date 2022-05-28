@@ -87,6 +87,10 @@ Permission.find_or_create_by!(name: "Publish sets") do |permission|
     permission.description = "Allow user to publish sets"
 end
 
+Permission.find_or_create_by!(name: "Start sessions") do |permission|
+    permission.description = "Allow user to start a session for a set"
+end
+
 Permission.find_or_create_by!(name: "Edit team") do |permission|
     permission.description = "Allow user to edit team information like name and profile picture"
 end

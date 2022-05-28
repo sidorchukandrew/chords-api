@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     # sessions
     post '/sessions', to: 'sessions#create'
     get '/sessions', to: 'sessions#index'
+    put "/sessions/:id", to: 'sessions#update'
   end
 
   # invitations

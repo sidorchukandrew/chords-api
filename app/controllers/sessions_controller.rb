@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :authenticate_user!, :authenticate_team, :validate_subscription
+  before_action :set_session, only: [:update]
 
   def index
     @sessions = Session.includes(:user).where(team_id: params[:team_id], setlist_id: params[:setlist_id], status: "ACTIVE")
@@ -7,6 +8,11 @@ class SessionsController < ApplicationController
   end
 
   def update
+    if @session.update(session_params)
+      render json: @session
+    else
+      render json: @session.errors
+    end
   end
 
   def create
@@ -24,6 +30,10 @@ class SessionsController < ApplicationController
   private
   def session_params
     params.permit(:setlist_id, :team_id, :status)
+  end
+
+  def set_session
+    @session = Session.find_by!(id: params[:id], team_id: params[:team_id])
   end
 
   def validate_subscription

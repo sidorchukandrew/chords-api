@@ -16,6 +16,7 @@ class ApplicationController < ActionController::API
   EDIT_SETLISTS = 'Edit sets'.freeze
   DELETE_SETLISTS = 'Delete sets'.freeze
   ADD_SETLISTS = 'Add sets'.freeze
+  START_SESSIONS = 'Start sessions'.freeze
   PUBLISH_SETLISTS = 'Publish sets'.freeze
 
   EDIT_TEAM = 'Edit team'.freeze
