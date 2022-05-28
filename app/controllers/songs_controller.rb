@@ -4,7 +4,7 @@ class SongsController < ApplicationController
   before_action :authenticate_user!, :authenticate_team
   before_action :can_view_songs, only: %i[index show]
   before_action :can_edit_songs, only: %i[update add_themes remove_themes add_genres remove_genres]
-  before_action :can_delete_songs, only: [:destroy]
+  before_action :can_delete_songs, only: [:destroy, :destroy_bulk]
   before_action :can_add_songs, only: [:create]
 
   before_action :set_song, only: %i[update destroy add_themes remove_themes add_genres remove_genres]
@@ -81,6 +81,10 @@ class SongsController < ApplicationController
 
   def remove_genres
     @song.remove_genres(params[:genre_ids])
+  end
+
+  def destroy_bulk
+    Song.where(team_id: params[:team_id], id: params[:ids]).destroy_all
   end
 
   private

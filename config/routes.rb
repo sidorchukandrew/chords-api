@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     delete '/tracks/:id', to: 'tracks#destroy'
   end
 
+  delete '/songs', to: 'songs#destroy_bulk'
+
 
   # formats
   put '/formats/:id', to: 'formats#update'
