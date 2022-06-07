@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def index
     @sessions = Session.includes(:user).where(team_id: params[:team_id], setlist_id: params[:setlist_id], status: "ACTIVE")
-    render json: @sessions, include: [:user]
+    render json: @sessions, include: :user
   end
 
   def update
