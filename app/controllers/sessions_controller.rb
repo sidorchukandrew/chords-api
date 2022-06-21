@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     @session.team = @current_member.team
 
     if @session.save
-      render json: @session
+      render json: @session, include: [:team, :user]
     else
       render json: @session.errors, status: :unprocessable_entity
     end
