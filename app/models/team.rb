@@ -1,5 +1,6 @@
 class Team < ApplicationRecord
   include Subscribable
+  require 'securerandom'
 
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
@@ -17,6 +18,8 @@ class Team < ApplicationRecord
   has_many :tracks, dependent: :destroy
   has_many :sessions, dependent: :destroy
   before_destroy :cancel_subscription
+
+  before_create :set_join_link
 
   def make_admin(user)
     @membership = Membership.new do |membership|
@@ -88,5 +91,9 @@ class Team < ApplicationRecord
       role.is_member = true
       role.permissions = Permission.where(name: ['View songs', 'View sets', 'View binders', 'View files'])
     end
+  end
+
+  def set_join_link
+    self.join_link = SecureRandom.uuid
   end
 end

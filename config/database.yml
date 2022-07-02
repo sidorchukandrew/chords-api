@@ -13,6 +13,8 @@ development:
 
 test:
   <<: *default
+  host: localhost
+  database: chords_api_test
 
 production:
   <<: *default
