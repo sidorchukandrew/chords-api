@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'securerandom'
 
 Genre.find_or_create_by!(name: "Rock")
 Genre.find_or_create_by!(name: "Country")
@@ -172,4 +173,10 @@ users = User.all
 
 users.each do |u|
     NotificationSetting.find_or_create_by!(user: u, notification_type: "Event reminder")
+end
+
+teams = Team.all
+
+teams.each do |team|
+    team.join_link = SecureRandom.hex(10) unless team.join_link
 end

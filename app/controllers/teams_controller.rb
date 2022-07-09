@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_team, except: [:create, :index]
+  before_action :can_edit_team?, only: [:update]
   before_action :set_team, only: [:update, :destroy]
 
   # GET /teams
@@ -36,6 +37,8 @@ class TeamsController < ApplicationController
 
   # PATCH/PUT /teams/1
   def update
+    return render status: :forbidden if params.key?(:join_link_enabled) && !can_add_members?
+    
     if @team.update(team_params)
       render json: @team
     else
@@ -57,6 +60,14 @@ class TeamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def team_params
-    params.require(:team).permit([:name, :team_id])
+    params.require(:team).permit([:name, :team_id, :join_link_enabled])
+  end
+
+  def can_add_members?
+    @current_member.can? ADD_MEMBERS
+  end
+
+  def can_edit_team?
+    return_forbidden unless @current_member.can? EDIT_TEAM
   end
 end

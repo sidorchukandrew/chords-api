@@ -64,7 +64,9 @@ class Team < ApplicationRecord
       id: self.id,
       created_at: self.created_at,
       updated_at: self.updated_at,
-      image_url: self.image&.variant(resize_to_limit: [200, 200])&.processed&.url
+      image_url: self.image&.variant(resize_to_limit: [200, 200])&.processed&.url,
+      join_link: self.join_link,
+      join_link_enabled: self.join_link_enabled
     }
   end
 
@@ -94,6 +96,6 @@ class Team < ApplicationRecord
   end
 
   def set_join_link
-    self.join_link = SecureRandom.uuid
+    self.join_link = SecureRandom.hex(10)
   end
 end

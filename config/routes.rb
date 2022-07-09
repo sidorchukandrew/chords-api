@@ -194,4 +194,7 @@ Rails.application.routes.draw do
   scope '/youtube' do
     get '/search', to: 'youtube#search'
   end
+
+  get '/join/:code', to: 'join_link#find_by_join_link'
+  post '/join/:code', to: 'join_link#join'
 end

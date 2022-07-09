@@ -1,0 +1,9 @@
+pro_team:
+  name: Pro Team
+  join_link: d07a7636d7427a5d7398
+  join_link_enabled: true
+
+disabled_pro_team:
+  name: Pro Team
+  join_link: d07a7636d7427a5d739050
+  join_link_enabled: false

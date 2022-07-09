@@ -45,6 +45,7 @@ class ApplicationController < ActionController::API
 
   def authenticate_team
     set_current_user
+
     if @current_user.belongs_to_team?(params[:team_id])
       @current_member = @current_user.memberships.find_by(team_id: params[:team_id])
       @current_subscription = Subscription.find_by(team_id: params[:team_id])

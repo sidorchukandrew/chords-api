@@ -1,0 +1,125 @@
+view_songs:
+  name: View songs
+  description: Allow user to view all songs
+
+edit_songs:
+  name: Edit songs
+  description: Allow user to edit any songs
+
+delete_songs:
+  name: Delete songs
+  description: Allow user to delete any songs
+
+add_songs:
+  name: Add songs
+  description: Allow user to create or import songs
+
+view_binders:
+  name: View binders
+  description: Allow user to view all binders
+
+edit_binders:
+  name: Edit binders
+  description: Allow user to edit any binders
+
+delete_binders:
+  name: Delete binders
+  description: Allow user to delete any binders
+
+add_binders:
+  name: Add binders
+  description: Allow user to create binders
+
+view_sets:
+  name: View sets
+  description: Allow user to view all sets
+
+edit_sets:
+  name: Edit sets
+  description: Allow user to edit any sets
+
+delete_sets:
+  name: Delete sets
+  description: Allow user to delete any sets
+
+add_sets:
+  name: Add sets
+  description: Allow user to create sets
+
+publish_sets:
+  name: Publish sets
+  description: Allow user to publish sets
+
+start_sessions:
+  name: Start sessions
+  description: Allow user to start a session for a set
+
+edit_team:
+  name: Edit team
+  description: Allow user to edit team information like name and profile picture
+
+delete_team:
+  name: Delete team
+  description: Allow user to delete team
+
+add_members:
+  name: Add members
+  description: Allow user to add members to the team and resend or cancel invitations
+
+remove_members:
+  name: Remove members
+  description: Allow user to remove members from the team
+
+view_roles:
+  name: View roles
+  description: Allow user to view the role configuration page
+
+add_roles:
+  name: Add roles
+  description: Allow user to create new roles in the team
+
+delete_roles:
+  name: Delete roles
+  description: Allow user to delete roles in the team
+
+edit_roles:
+  name: Edit roles
+  description:
+    Allow user to edit roles, such as adding and removing permissions to
+    the role
+
+assign_roles:
+  name: Assign roles
+  description: Allow user to assign roles to other members
+
+view_events:
+  name: View events
+  description: Allow user to view events on a calendar
+
+add_events:
+  name: Add events
+  description: Allow user to add events to the calendar
+
+delete_events:
+  name: Delete events
+  description: Allow user to delete events from the calendar
+
+edit_events:
+  name: Edit events
+  description: Allow user to edit events, such as modifying notifications and members
+
+view_files:
+  name: View files
+  description: Allow user to view and download files attached to a song
+
+add_files:
+  name: Add files
+  description: Allow user to attach files to a song
+
+delete_files:
+  name: Delete files
+  description: Allow user to delete and unattach files from a song
+
+edit_files:
+  name: Edit files
+  description: Allow user to edit file names attached to a song

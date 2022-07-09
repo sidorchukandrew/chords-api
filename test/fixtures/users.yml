@@ -1,0 +1,40 @@
+andrew:
+  provider: email
+  uid: andrewsmith@gmail.com
+  # decrypted_password: password
+  encrypted_password: $2a$12$TTzmrRo3MbiEFoyc9JEekuTobdj1ZuWumfO2/kN9RW4IuWlHvDQ1G
+  email: andrewsmith@gmail.com
+  first_name: Andrew
+  last_name: Smith
+  phone_number: 3192346678
+  timezone: America/New_York
+  confirmed_at: <%= 1.day.ago.to_s %>
+  customer_id: cus_LzcmaujH3Zt5wd
+
+bob:
+  provider: email
+  uid: bobronald@gmail.com
+  # decrypted_password: password
+  encrypted_password: $2a$12$TTzmrRo3MbiEFoyc9JEekuTobdj1ZuWumfO2/kN9RW4IuWlHvDQ1G
+  confirmed_at:
+  email: bobronald@gmail.com
+  first_name: Bob
+  last_name: Ronald
+  phone_number: 3293315526
+  timezone: America/New_York
+  confirmed_at: <%= 1.day.ago.to_s %>
+  customer_id: cus_LzcnXDAv1vBp35
+
+cody:
+  provider: email
+  uid: codyjones@gmail.com
+  # decrypted_password: password
+  encrypted_password: $2a$12$TTzmrRo3MbiEFoyc9JEekuTobdj1ZuWumfO2/kN9RW4IuWlHvDQ1G
+  confirmed_at:
+  email: codyjones@gmail.com
+  first_name: Cody
+  last_name: Jones
+  phone_number: 3912301992
+  timezone: America/New_York
+  confirmed_at: <%= 1.day.ago.to_s %>
+  customer_id: cus_M1Ui0Glnt9kZ5f

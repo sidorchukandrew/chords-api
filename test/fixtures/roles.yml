@@ -1,0 +1,24 @@
+admin:
+  name: Admin
+  description: Members in this role have full access and privileges.
+  team: pro_team
+  is_admin: true
+  is_member: false
+  permissions: view_songs, edit_songs, delete_songs, add_songs, view_binders, edit_binders, delete_binders, add_binders, view_sets, edit_sets, delete_sets, add_sets, publish_sets, start_sessions, edit_team, delete_team, add_members, remove_members, view_roles, add_roles, delete_roles, edit_roles, assign_roles, view_events, add_events, delete_events, edit_events, view_files, add_files, delete_files, edit_files
+
+member:
+  name: Member
+  description:
+    Members in this role have read only access to songs, binders and sets.
+    Members receive this role by default when they join a team.
+  team: pro_team
+  is_admin: false
+  is_member: true
+
+team_editor:
+  name: Team Editor
+  description: This role allows for editing details about the team.
+  team: pro_team
+  is_admin: false
+  is_member: false
+  permissions: edit_team

@@ -1,0 +1,11 @@
+andrew_membership:
+  user: andrew
+  team: pro_team
+  position: Leader
+  role: admin
+
+bob_membership:
+  user: bob
+  team: pro_team
+  position: Guitarist
+  role: team_editor

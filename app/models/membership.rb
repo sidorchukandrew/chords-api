@@ -18,6 +18,7 @@ class Membership < ApplicationRecord
 
   def can?(permission)
     puts "Checking if has permission #{permission}"
+
     role.present? && role.permissions.where(name: permission).exists?
   end
 end
