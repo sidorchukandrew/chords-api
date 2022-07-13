@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_one_attached :profile_picture
   has_many :subscriptions
   has_many :notification_settings, dependent: :destroy
-  has_many :sessions
+  has_many :sessions, dependent: :destroy
   
   before_create :add_to_stripe
   after_create :add_notification_settings
