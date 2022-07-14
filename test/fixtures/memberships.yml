@@ -9,3 +9,9 @@ bob_membership:
   team: pro_team
   position: Guitarist
   role: team_editor
+
+dan_membership:
+  user: dan_billing_manager
+  team: pro_team
+  position: Billing
+  role: billing_manager

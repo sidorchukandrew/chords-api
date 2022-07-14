@@ -123,3 +123,7 @@ delete_files:
 edit_files:
   name: Edit files
   description: Allow user to edit file names attached to a song
+
+manage_billing:
+  name: Manage billing
+  description: Allow user to manage billing for the team, as well as upgrading or downgrading the team's plan.

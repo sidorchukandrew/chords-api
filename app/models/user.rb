@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-require 'stripe'
 class User < ActiveRecord::Base
   extend Devise::Models
   devise :database_authenticatable, :registerable,
          :recoverable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
   include PcoUtils
-  include Billable
   include Notifiable
 
   has_many :invitations, dependent: :destroy
@@ -18,9 +16,7 @@ class User < ActiveRecord::Base
   has_many :notification_settings, dependent: :destroy
   has_many :sessions, dependent: :destroy
   
-  before_create :add_to_stripe
   after_create :add_notification_settings
-  after_update :update_in_stripe
 
   def belongs_to_team?(team_id)
     self.teams.exists?(team_id)
@@ -84,17 +80,4 @@ class User < ActiveRecord::Base
   def pco_api
     PCO::API.new(oauth_access_token: self.pco_access_token, url: API_URL)
   end
-
-  def add_to_stripe
-    customer = Stripe::Customer.create(email: email)
-    self.customer_id = customer.id
-  end
-
-  def update_in_stripe
-    Stripe::Customer.update(customer_id, {
-        name: "#{first_name} #{last_name}",
-        phone: phone_number
-    })
-  end
-
 end

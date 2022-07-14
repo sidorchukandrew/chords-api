@@ -1,0 +1,7 @@
+pro_subscription:
+  team: pro_team
+  plan_name: Pro,
+  stripe_product_id: prod_KHAENraShsQbaI
+  stripe_price_id: price_1Jcbu9JhGHp02lw1XjCbOz1x
+  stripe_subscription_id: test
+  status: trialing

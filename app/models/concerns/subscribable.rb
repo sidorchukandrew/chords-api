@@ -1,11 +1,10 @@
 module Subscribable
   extend ActiveSupport::Concern
 
-  def subscribe(billing_user, plan)
-    stripe_subscription = subscribe_in_stripe(billing_user, plan)
+  def subscribe(plan)
+    stripe_subscription = subscribe_in_stripe(plan)
 
     subscription = Subscription.new do |s|
-      s.user = billing_user
       s.team = self
       s.status = stripe_subscription.status
       s.stripe_product_id = stripe_subscription.items.data[0].price.product
@@ -27,37 +26,31 @@ module Subscribable
 
   private
 
-  def subscribe_in_stripe(billing_user, plan)
+  def subscribe_in_stripe(plan)
     if plan == 'Pro'
-      subscribe_to_pro(billing_user)
+      subscribe_to_pro
     else
-      subscribe_to_starter(billing_user)
+      subscribe_to_starter
     end
   end
 
-  def subscribe_to_pro(billing_user)
+  def subscribe_to_pro()
     Stripe::Subscription.create({
-      customer: billing_user.customer_id,
+      customer: self.customer_id,
       items: [{ price: ENV['PRO_PLAN_PRICE_ID'] }],
       trial_period_days: 30,
       metadata: {
-        team_id: id,
-        team_name: name,
-        billing_user_email: billing_user.email,
-        billing_user_id: billing_user.id
+        "env": ENV["ENVIRONMENT"]
       }
     })
   end
 
-  def subscribe_to_starter(billing_user)
+  def subscribe_to_starter()
     Stripe::Subscription.create({
-      customer: billing_user.customer_id,
+      customer: self.customer_id,
       items: [{ price: ENV['STARTER_PLAN_PRICE_ID'] }],
       metadata: {
-        team_id: id,
-        team_name: name,
-        billing_user_email: billing_user.email,
-        billing_user_id: billing_user.id
+        "env": ENV["ENVIRONMENT"]
       }
     })
   end

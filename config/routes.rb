@@ -82,7 +82,6 @@ Rails.application.routes.draw do
   # users
   scope '/users/me' do
     resources :notification_settings, only: %i[update index]
-    resources :subscriptions, only: %i[index show]
   end
 
   get '/users/me', to: 'users#me'

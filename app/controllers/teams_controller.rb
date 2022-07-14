@@ -28,8 +28,8 @@ class TeamsController < ApplicationController
     if @team.save
       @team.add_default_roles
       @team.make_admin(@current_user)
-      @team.subscribe(@current_user, params[:plan])
-      render json: @team, status: :created, location: @team
+      @team.subscribe(params[:plan])
+      render json: @team, status: :created, location: @team, include: [:subscription]
     else
       render json: @team.errors, status: :unprocessable_entity
     end

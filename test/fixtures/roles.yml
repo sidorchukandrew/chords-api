@@ -4,7 +4,7 @@ admin:
   team: pro_team
   is_admin: true
   is_member: false
-  permissions: view_songs, edit_songs, delete_songs, add_songs, view_binders, edit_binders, delete_binders, add_binders, view_sets, edit_sets, delete_sets, add_sets, publish_sets, start_sessions, edit_team, delete_team, add_members, remove_members, view_roles, add_roles, delete_roles, edit_roles, assign_roles, view_events, add_events, delete_events, edit_events, view_files, add_files, delete_files, edit_files
+  permissions: view_songs, edit_songs, delete_songs, add_songs, view_binders, edit_binders, delete_binders, add_binders, view_sets, edit_sets, delete_sets, add_sets, publish_sets, start_sessions, edit_team, delete_team, add_members, remove_members, view_roles, add_roles, delete_roles, edit_roles, assign_roles, view_events, add_events, delete_events, edit_events, view_files, add_files, delete_files, edit_files, manage_billing
 
 member:
   name: Member
@@ -22,3 +22,12 @@ team_editor:
   is_admin: false
   is_member: false
   permissions: edit_team
+
+billing_manager:
+  name: Billing Manager
+  description:
+    Members in this role can manage/pay bills for the team as well as change the subscription tier.
+  team: pro_team
+  is_admin: false
+  is_member: false
+  permissions: manage_billing

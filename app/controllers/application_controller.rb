@@ -41,6 +41,8 @@ class ApplicationController < ActionController::API
   EDIT_FILES = 'Edit files'.freeze
   DELETE_FILES = 'Delete files'.freeze
 
+  MANAGE_BILLING = 'Manage billing'.freeze
+
   private
 
   def authenticate_team

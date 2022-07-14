@@ -160,6 +160,10 @@ Permission.find_or_create_by!(name: "Edit files") do |permission|
     permission.description = "Allow user to edit file names attached to a song"
 end
 
+Permission.find_or_create_by!(name: "Manage billing") do |permission|
+    permission.description = "Allow user to manage billing for the team, as well as upgrading or downgrading the team's plan"
+end
+
 admins = Role.where(is_admin: true)
 all_permissions = Permission.all
 admins.each { |admin| admin.permissions.replace(all_permissions) }

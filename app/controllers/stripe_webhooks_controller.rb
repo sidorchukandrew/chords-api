@@ -13,10 +13,15 @@ class StripeWebhooksController < ApplicationController
 
     case event.type
     when 'customer.subscription.trial_will_end'
-      user = User.find_by(customer_id: event.data.object.customer)
-      unless user.payment_method_attached?
-        PaymentsMailer.with(user: user).no_payment_method.deliver_later
+      subscription = Subscription.find_by_stripe_subscription_id(event.data.object.id)
+      billing_managers = subscription.billing_managers
+
+      unless subscription.team.payment_method_attached?
+        billing_managers.each do |manager|
+          PaymentsMailer.with(user: manager).no_payment_method.deliver_later
+        end
       end
+
     else
       puts "Unhandled event type: #{event.type}"
     end
@@ -63,12 +68,10 @@ class StripeWebhooksController < ApplicationController
         puts "Cancel subscription: #{event.data.object.id}, Team subscription: #{@team.subscription.stripe_subscription_id}"
         return unless @team.subscription.stripe_subscription_id == event.data.object.id
 
-        @billing_user = @team.subscription.user
-
         @team.subscription.destroy
 
         puts 'Creating new starter subscription because previous subscription was destroyed'
-        @team.subscribe(@billing_user, 'Starter')
+        @team.subscribe('Starter')
 
         # TODO: NOTIFY CUSTOMER THAT THEY WERE SUCCESSFULLY DOWNGRADED
         # TODO: DELETE HIGHER SUBSCRIPTION FEATURES

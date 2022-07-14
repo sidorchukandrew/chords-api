@@ -1,6 +1,8 @@
 class Team < ApplicationRecord
   include Subscribable
+  include Billable
   require 'securerandom'
+  require 'stripe'
 
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
@@ -20,6 +22,7 @@ class Team < ApplicationRecord
   before_destroy :cancel_subscription
 
   before_create :set_join_link
+  before_create :add_to_stripe
 
   def make_admin(user)
     @membership = Membership.new do |membership|
@@ -97,5 +100,10 @@ class Team < ApplicationRecord
 
   def set_join_link
     self.join_link = SecureRandom.hex(10)
+  end
+
+  def add_to_stripe
+    customer = Stripe::Customer.create(name: name, metadata: {env: ENV["ENVIRONMENT"]})
+    self.customer_id = customer.id
   end
 end
