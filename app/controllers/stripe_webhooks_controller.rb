@@ -51,43 +51,43 @@ class StripeWebhooksController < ApplicationController
   end
 
   def subscription_cancelled
-    event = nil
+    # event = nil
 
-    begin
-      event = Stripe::Event.construct_from(params.as_json)
-    rescue JSON::ParserError
-      return render status: 400
-    end
+    # begin
+    #   event = Stripe::Event.construct_from(params.as_json)
+    # rescue JSON::ParserError
+    #   return render status: 400
+    # end
 
-    case event.type
-    when 'customer.subscription.deleted'
-      begin
-        @team = Team.find(event.data.object.metadata.team_id)
+    # case event.type
+    # when 'customer.subscription.deleted'
+    #   begin
+    #     @team = Team.find(event.data.object.metadata.team_id)
 
-        puts 'Checking if subscription in cancel request matches current subscription on team'
-        puts "Cancel subscription: #{event.data.object.id}, Team subscription: #{@team.subscription.stripe_subscription_id}"
-        return unless @team.subscription.stripe_subscription_id == event.data.object.id
+    #     puts 'Checking if subscription in cancel request matches current subscription on team'
+    #     puts "Cancel subscription: #{event.data.object.id}, Team subscription: #{@team.subscription.stripe_subscription_id}"
+    #     return unless @team.subscription.stripe_subscription_id == event.data.object.id
 
-        @team.subscription.destroy
+    #     @team.subscription.destroy
 
-        puts 'Creating new starter subscription because previous subscription was destroyed'
-        @team.subscribe('Starter')
+    #     puts 'Creating new starter subscription because previous subscription was destroyed'
+    #     @team.subscribe('Starter')
 
-        # TODO: NOTIFY CUSTOMER THAT THEY WERE SUCCESSFULLY DOWNGRADED
-        # TODO: DELETE HIGHER SUBSCRIPTION FEATURES
-        # @team.events.destroy_all
-        # @team.songs.each do |s|
-        #   s.files.purge_later
-        # end
-        # @team.notes.destroy_all
-        # @team.tracks.destroy_all
+    #     # TODO: NOTIFY CUSTOMER THAT THEY WERE SUCCESSFULLY DOWNGRADED
+    #     # TODO: DELETE HIGHER SUBSCRIPTION FEATURES
+    #     # @team.events.destroy_all
+    #     # @team.songs.each do |s|
+    #     #   s.files.purge_later
+    #     # end
+    #     # @team.notes.destroy_all
+    #     # @team.tracks.destroy_all
 
-      rescue ActiveRecord::RecordNotFound
-        return
-      end
-    else
-      puts "Unhandled event type: #{event.type}"
-    end
+    #   rescue ActiveRecord::RecordNotFound
+    #     return
+    #   end
+    # else
+    #   puts "Unhandled event type: #{event.type}"
+    # end
   end
 
   private
