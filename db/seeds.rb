@@ -182,6 +182,6 @@ end
 teams = Team.all
 
 teams.each do |team|
-    team.join_link = SecureRandom.hex(10) unless team.join_link
+    team.join_link = SecureRandom.hex(10) unless team.join_link.present?
     team.save
 end
