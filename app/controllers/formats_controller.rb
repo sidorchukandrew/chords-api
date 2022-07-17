@@ -35,7 +35,7 @@ class FormatsController < ApplicationController
 
     private
     def format_params
-        params.permit(:font_size, :font, :bold_chords, :italic_chords)
+        params.permit(:font_size, :font, :bold_chords, :italic_chords, :chord_color, :highlight_color)
     end
 
     def set_format

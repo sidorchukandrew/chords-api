@@ -108,7 +108,9 @@ class SongsController < ApplicationController
       font: 'Roboto Mono',
       font_size: 18,
       bold_chords: false,
-      italic_chords: false
+      italic_chords: false,
+      highlight_color: "rgba(255, 255, 255, 0)",
+      chord_color: "rgba(0, 0, 0, 1)",
     }
   end
 
