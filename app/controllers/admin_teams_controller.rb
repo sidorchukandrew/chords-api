@@ -2,12 +2,6 @@ class AdminTeamsController < ApplicationController
     before_action :authenticate_user!, :authenticate_admin, :set_default_response_format
     before_action :set_team, only: [:memberships, :songs, :binders, :setlists]
 
-protected
-
-def set_default_response_format
-  request.format = :json
-end
-
     def index
         @teams = Team.all
         @teams = @teams.map {|team| team.to_hash}
