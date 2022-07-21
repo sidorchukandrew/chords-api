@@ -1,7 +1,7 @@
 class AdminTeamsController < ApplicationController
     before_action :authenticate_user!
     before_action :authenticate_admin
-    before_action :set_team, only: [:show, :memberships, :songs, :binders, :setlists]
+    before_action :set_team, only: [:memberships, :songs, :binders, :setlists]
 
     def index
         @teams = Team.all
@@ -11,7 +11,7 @@ class AdminTeamsController < ApplicationController
     end
 
     def show
-        render json: @team.to_hash
+        @team = Team.includes([:subscription, memberships: [:user]]).find(params[:id])
     end
 
     def memberships

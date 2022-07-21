@@ -35,6 +35,8 @@ gem 'twilio-ruby'
 
 gem 'delayed_job_active_record'
 
+gem 'jbuilder', '~> 2.5'
+
 # file reading
 gem 'docx'
 gem 'pdf-reader'
