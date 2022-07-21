@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def to_hash
+    teams_hash = teams.map { |team| team.to_hash }
     user_hash = {
         id: id,
         uid: uid,
@@ -58,7 +59,8 @@ class User < ActiveRecord::Base
         image_url: profile_picture&.variant(resize_to_limit: [200, 200])&.processed&.url,
         pco_connected: pco_token_active?,
         phone_number: phone_number,
-        timezone: timezone
+        timezone: timezone,
+        teams: teams_hash
     }
 
     user_hash
