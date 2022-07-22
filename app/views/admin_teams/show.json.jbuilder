@@ -1,4 +1,4 @@
-json.(@team, :id, :name, :created_at, :updated_at, :join_link, :join_link_enabled)
+json.(@team, :id, :name, :created_at, :updated_at, :join_link, :join_link_enabled, :customer_id)
 
 json.image_url @team.image&.variant(resize_to_limit: [200, 200])&.processed&.url
 
