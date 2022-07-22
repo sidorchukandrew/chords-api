@@ -10,7 +10,7 @@ class AdminTeamsController < ApplicationController
     end
 
     def show
-        @team = Team.includes([:subscription, memberships: [:user]]).find(params[:id])
+        @team = Team.includes([:subscription, :roles, memberships: [:user]]).find(params[:id])
     end
 
     def memberships

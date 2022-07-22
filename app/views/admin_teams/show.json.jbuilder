@@ -12,3 +12,7 @@ end
 json.subscription do 
   json.(@team.subscription, :id, :plan_name, :stripe_product_id, :stripe_price_id, :stripe_subscription_id, :created_at, :updated_at, :status)
 end
+
+json.roles @team.roles do |role|
+  json.(role, :name, :description, :id, :created_at, :updated_at, :is_admin, :is_member)
+end
