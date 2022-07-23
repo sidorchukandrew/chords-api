@@ -134,6 +134,10 @@ Rails.application.routes.draw do
       get '/:id/binders', to: 'admin_teams#binders'
       get '/:id/setlists', to: 'admin_teams#setlists'
     end
+
+    scope '/roles' do
+      get '/:id', to: 'admin_roles#show'
+    end
   end
 
   post '/feedback', to: 'feedback#create'
