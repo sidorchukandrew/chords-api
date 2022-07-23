@@ -138,6 +138,10 @@ Rails.application.routes.draw do
     scope '/roles' do
       get '/:id', to: 'admin_roles#show'
     end
+
+    scope '/memberships' do
+      get '/:id', to: 'admin_memberships#show' 
+    end
   end
 
   post '/feedback', to: 'feedback#create'
