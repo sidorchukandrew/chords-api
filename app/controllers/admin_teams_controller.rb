@@ -1,6 +1,6 @@
 class AdminTeamsController < ApplicationController
     before_action :authenticate_user!, :authenticate_admin, :set_default_response_format
-    before_action :set_team, only: [:memberships, :songs, :binders]
+    before_action :set_team, only: [:memberships, :songs_index, :binders]
 
     def index
         @teams = Team.all
