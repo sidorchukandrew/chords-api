@@ -1,6 +1,6 @@
 class AdminTeamsController < ApplicationController
     before_action :authenticate_user!, :authenticate_admin, :set_default_response_format
-    before_action :set_team, only: [:memberships, :songs, :binders, :setlists]
+    before_action :set_team, only: [:memberships, :songs, :binders]
 
     def index
         @teams = Team.all
@@ -21,7 +21,7 @@ class AdminTeamsController < ApplicationController
         render json: @memberships
     end
 
-    def songs
+    def songs_index
         @songs = @team.songs
         
         render json: @songs
@@ -34,9 +34,7 @@ class AdminTeamsController < ApplicationController
     end
 
     def setlists
-        @setlists = @team.setlists
-
-        render json: @setlists, include: [:songs]
+        @setlists = Setlist.includes(:songs).where(team_id: params[:id])
     end
 
     private

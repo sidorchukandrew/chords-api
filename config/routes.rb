@@ -130,7 +130,7 @@ Rails.application.routes.draw do
       get '/:id', to: 'admin_teams#show'
       get '/:id/memberships', to: 'admin_teams#memberships'
 
-      get '/:id/songs', to: 'admin_teams#songs'
+      get '/:id/songs', to: 'admin_teams#songs_index'
       get '/:id/binders', to: 'admin_teams#binders'
       get '/:id/setlists', to: 'admin_teams#setlists'
     end
