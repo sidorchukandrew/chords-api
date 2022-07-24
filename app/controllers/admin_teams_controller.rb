@@ -28,9 +28,9 @@ class AdminTeamsController < ApplicationController
     end
 
     def binders
-        @binders = @team.binders
-        
-        render json: @binders, include: [:songs]
+      @binders = @team.binders
+      
+      render json: @binders, include: [:songs]
     end
 
     def setlists

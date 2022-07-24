@@ -146,6 +146,10 @@ Rails.application.routes.draw do
     scope '/songs' do
       get '/:id', to: 'admin_songs#show'
     end
+
+    scope '/binders' do
+      get '/:id', to: 'admin_binders#show'
+    end
   end
 
   post '/feedback', to: 'feedback#create'
